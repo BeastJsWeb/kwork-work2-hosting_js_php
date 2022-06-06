@@ -14,130 +14,121 @@ function hideProgressAjax()
   ajax_loading.style.display = 'none';
 }
 
-document.addEventListener('DOMContentLoaded', function ()
-{       
+document.addEventListener('DOMContentLoaded', function () {
     
-     document.querySelector("body").addEventListener("keydown", (e) => { if (e.target.closest(".form-validate")) { e.target.classList.remove('is-invalid'); } });
-     document.querySelector("body").addEventListener("input", (e) => { if (e.target.closest(".form-validate")) { e.target.classList.remove('is-invalid'); } });    
+  document.querySelector("body").addEventListener("keydown", (e) => { if (e.target.closest(".form-validate")) { e.target.classList.remove('is-invalid'); } });
+  document.querySelector("body").addEventListener("input", (e) => { if (e.target.closest(".form-validate")) { e.target.classList.remove('is-invalid'); } });    
+    
+  comment_input_message.oninput = () =>
+  {  
+    if (user_id == 0)  
+    {    
+      if (typeof siteModal !== 'object')  
+      {   
+        siteModal = new bootstrap.Modal(document.getElementById('modal_login')); 
+                      
+        siteModal.show();                   
+      }
+      else if (!siteModal._isShown)
+      {
+        siteModal = new bootstrap.Modal(document.getElementById('modal_login')); 
+                      
+        siteModal.show();                     
+      }          
+    }    
+      
+    m();           
+  };
        
-     comment_input_message.oninput = () =>
-     {  
-       if (user_id == 0)  
-       {    
-         if (typeof siteModal !== 'object')  
-         {   
-           siteModal = new bootstrap.Modal(document.getElementById('modal_login')); 
-                          
-           siteModal.show();                   
-         }
-         else if (!siteModal._isShown)
-         {
-           siteModal = new bootstrap.Modal(document.getElementById('modal_login')); 
-                          
-           siteModal.show();                     
-         }          
-       }    
-         
-       m();           
-     }   
-       
-     document.querySelector("body").addEventListener("click", (e) => 
-     { 
-       if (e.target.closest(".comment__action")) 
-       { 
-         var parent = e.target.closest(".comment");  
-                 
-         var child = parent.querySelector('.comment__expand-branch');
+  document.querySelector("body").addEventListener("click", e => { 
+    if (e.target.closest(".comment__action")) {
+
+      var parent = e.target.closest(".comment");  
+      var child = parent.querySelector('.comment__expand-branch');
+      var parent_id = parent.dataset.id; 
+      var level = parent.dataset.level; 
+      var next = parent.dataset.next; 
+        
+      comment_form_data_reply.value = parent_id; 
+      comment_form_data_level.value = level;
+      comment_form_data_next.value = next;
+
+      child.after(comment_form);
+      
+      comment_placeholder.textContent = "Написать ответ...";
+      comment_input_message.innerHTML = ""; 
+
+      if (user_id !== 0) {
+        comment_input_message.focus();
+      }
+      comment_input_box.classList.add('thesis--empty');        
+      comment_send_button.classList.add('v-button--disabled');
+      comment_send_button_text.textContent = "Отправить"; 
+      comment_send_button.setAttribute("onclick", "b();");
           
-         var parent_id = parent.dataset.id; 
-          
-         var level = parent.dataset.level; 
-         
-         var next = parent.dataset.next; 
-          
-         comment_form_data_reply.value = parent_id; 
-         
-         comment_form_data_level.value = level;
-         
-         comment_form_data_next.value = next;
-         
-         child.after(comment_form);
-         
-         comment_placeholder.textContent = "Написать ответ...";
-         comment_input_message.innerHTML = ""; 
-         comment_input_message.focus();
-         comment_input_box.classList.add('thesis--empty');        
-         comment_send_button.classList.add('v-button--disabled');
-         comment_send_button_text.textContent = "Отправить"; 
-         comment_send_button.setAttribute("onclick", "b();");
-            
-         comment_cancel.innerHTML = "<div class=\"thesis__custom_button\" onclick=\"q("+parent_id+");\">Цитировать</div><div class=\"thesis__custom_button\" data-name=\"cancel\" onclick=\"a(true, false);\">Отмена</div>";             
-         
-         e.stopPropagation(); e.preventDefault();        
-         return false; 
-       } 
+      comment_cancel.innerHTML = "<div class=\"thesis__custom_button\" onclick=\"q("+parent_id+");\">Цитировать</div><div class=\"thesis__custom_button\" data-name=\"cancel\" onclick=\"a(true, false);\">Отмена</div>";             
+      
+      e.stopPropagation(); e.preventDefault();        
+      return false; 
+    } 
+  });
      
-     });
-     
-     document.querySelector("body").addEventListener("click", (e) => 
-     { 
-       if (e.target.closest(".comment-edit")) 
-       { 
-         var parent = e.target.closest(".comment");  
-                 
-         var child = parent.querySelector('.comment__expand-branch');
-          
-         var parent_id = parent.dataset.id; 
-          
-         var level = parent.dataset.level;  
-          
-         var image = parent.dataset.image;  
-          
-         comment_form_data_reply.value = parent_id; 
-         
-         comment_form_data_level.value = level;
-         
-         comment_form_data_media.value = image;
-         
-         if (image)
-         {
-           var html = '<div class="andropov_uploader__preview_item"><div class="andropov_uploader__preview_item__inner"><div class="andropov_preview andropov_preview--image" style="min-height: 80px; min-width: 80px"><img class="andropov_preview__image" style="max-width: 80px; max-height: 80px;" src="/upload/'+image+'"></div><div class="andropov_uploader__preview_item__remove" onclick="f();"></div></div></div>';
-         
-           comment_uploader.innerHTML = html;          
-         } 
-         else
-         {
-           comment_uploader.innerHTML = "";
-           
-           parent.setAttribute("data-image", "");
-         }    
-         
-         child.after(comment_form);
-                 
-         var text = document.querySelector("#comment_text_"+parent_id).innerHTML;   
-         
-         comment_placeholder.textContent = "Редактировать комментарий...";
-         comment_input_message.innerHTML = text; 
-         comment_input_message.focus();
-         comment_input_box.classList.remove('thesis--empty');        
-         comment_send_button.classList.add('v-button--disabled');
-         comment_send_button_text.textContent = "Редактировать";
-         comment_send_button.setAttribute("onclick", "e();");
-                
-         comment_cancel.innerHTML = "<div class=\"thesis__custom_button\" onclick=\"a(true, false);\">Отмена</div>";             
-         
-         [].slice.call(document.querySelectorAll('[data-bs-toggle="dropdown"]')).map(function (elem) { new bootstrap.Dropdown(elem).hide(); });
-         
-         e.stopPropagation(); e.preventDefault();        
-         return false; 
-       } 
-     
-     });
-     
-     document.querySelector('body').addEventListener("change", (e) => 
-  {
-    if (e.target.closest(".site_load_file"))
+  document.querySelector("body").addEventListener("click", (e) => 
+  { 
+    if (e.target.closest(".comment-edit")) 
     { 
+      var parent = e.target.closest(".comment");  
+              
+      var child = parent.querySelector('.comment__expand-branch');
+      
+      var parent_id = parent.dataset.id; 
+      
+      var level = parent.dataset.level;  
+      
+      var image = parent.dataset.image;  
+      
+      comment_form_data_reply.value = parent_id; 
+      
+      comment_form_data_level.value = level;
+      
+      comment_form_data_media.value = image;
+      
+      if (image)
+      {
+        var html = '<div class="andropov_uploader__preview_item"><div class="andropov_uploader__preview_item__inner"><div class="andropov_preview andropov_preview--image" style="min-height: 80px; min-width: 80px"><img class="andropov_preview__image" style="max-width: 80px; max-height: 80px;" src="/upload/'+image+'"></div><div class="andropov_uploader__preview_item__remove" onclick="f();"></div></div></div>';
+      
+        comment_uploader.innerHTML = html;          
+      } 
+      else
+      {
+        comment_uploader.innerHTML = "";
+        
+        parent.setAttribute("data-image", "");
+      }    
+      
+      child.after(comment_form);
+              
+      var text = document.querySelector("#comment_text_"+parent_id).innerHTML;   
+      
+      comment_placeholder.textContent = "Редактировать комментарий...";
+      comment_input_message.innerHTML = text; 
+      comment_input_message.focus();
+      comment_input_box.classList.remove('thesis--empty');        
+      comment_send_button.classList.add('v-button--disabled');
+      comment_send_button_text.textContent = "Редактировать";
+      comment_send_button.setAttribute("onclick", "e();");
+            
+      comment_cancel.innerHTML = "<div class=\"thesis__custom_button\" onclick=\"a(true, false);\">Отмена</div>";             
+      
+      e.stopPropagation(); e.preventDefault();        
+      return false; 
+    } 
+  
+  });
+     
+  document.querySelector('body').addEventListener("change", (e) => {
+    if (e.target.closest(".site_load_file")) { 
+
       let fd = new FormData();
       fd.append("loadfile", e.target.closest(".site_load_file").files[0]);         
           
@@ -156,36 +147,74 @@ document.addEventListener('DOMContentLoaded', function ()
     return false; 
   });
 
+  //MODAL
   const body = document.getElementById('body');
-  //modal--open
-  function openModal(button, addClass) {
+
+  function openModal(button, addClass) { //modal--open
     document.querySelectorAll(button)
-      .forEach(btn => {
-        btn.addEventListener('click',() => {
-          body.className = '';
-          body.classList.add(addClass);
+    .forEach(btn => {
+      btn.addEventListener('click',() => {
+        body.className = '';
+        body.classList.add(addClass);
       });
     });
   }
-  // modal--close
-  document.querySelectorAll('.btn-close')
+ 
+  function closeModal(button) { //modal--close
+    document.querySelectorAll(button)
     .forEach(btn => {
       btn.addEventListener('click',
-        () => body.className = '');
-  });
-  // modal__login--open
-  openModal('.btns_login', 'modal-open');
-  // modal__register--open
-  openModal('.btns_reg', 'modal-openReg');
-  // modal__complaint--open
-  openModal('.comment__icon', 'modal-openComp');
-  // modal__restore--open
-  document.getElementById('btn_rest')
+      () => body.className = '');  
+    });
+  }
+  
+  openModal('.comment__icon', 'modal-openComp');// modal__complaint--open
+  closeModal('.btn-close');
+
+  if (user_id == 0) { //IF USER NOT LOGGED
+    openModal('.btns_login', 'modal-open'); // modal__login--open
+    openModal('.vote__button', 'modal-open');// modal__login--open
+    openModal('.comments_form', 'modal-open');// modal__login--open
+    openModal('.btns_reg', 'modal-openReg');// modal__registration--open
+    document.getElementById('btn_rest')// modal__restore--open
     .addEventListener('click',() => {
       body.className = '';
       body.classList.add('modal-openRest');
-  });
-     
+    });
+
+    document.querySelectorAll('.btn-primary')// modal__complaint--close/open login
+    .forEach(btn => {
+      btn.addEventListener('click',() => {
+        if (body.classList.contains('modal-openComp')) {
+          body.className = '';
+          body.classList.add('modal-open');
+        } else {
+          body.className = '';
+        }
+      });
+    });
+  } else { //IF USER LOGGED
+    closeModal('.btn-primary');
+
+    const ddMenu = document.getElementById('dropdownMenuButton1');
+  
+    ddMenu.addEventListener('click',
+      () => ddMenu.classList.toggle('show')
+    );
+  
+    document.querySelectorAll('.dropdown-item')//dropdownMenu--edit/delete
+    .forEach(btn => {
+      btn.addEventListener('click',
+        () => ddMenu.className = '' );  
+    });
+  }
+  if (password && count++ > 3) { // password limit
+    const logFormPassword = document.getElementById('form_login_password');
+  
+    logFormPassword.setAttribute('readonly');
+    setTimeout(logFormPassword.removeAttribute('readonly'), 10000);
+  }
+
 });
    
    function q(id)

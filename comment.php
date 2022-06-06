@@ -8,8 +8,6 @@ if (!isset($_SESSION['USER_ID']))
 {  
   $js .= 'form_register.reset();';  
   $js .= 'grecaptcha.reset(recaptcha_reg);';  
-  $js .= 'siteModal = new bootstrap.Modal(document.getElementById("modal_login"));';
-  $js .= 'siteModal.show();';
     
   exit(json_encode(['data' => $js]));
 }    
@@ -111,7 +109,7 @@ $html .= '<span class="comment__avatar" style="background-image: url(\'https://l
 $html .= '<div class="d-flex justify-content-center align-items-center rounded-circle" style="width: 32px; height:32px;  color: '.$ava['color'].'; background-color: '.$ava['bg'].';"><span class="text-uppercase text-center font-weight-bold">'.$ava['name'].'</span></div>';        
 $html .= '</span>';
 $html .= '<a class="comment__author" href="#">'.$user_data['name'].' '.$user_data['middlename'].'  '.$user_data['surname'].'</a>';
-$html .= '<div class="comment__icon" style="cursor: pointer;" onclick="form_complaint_id.value = '.$id.'; form_complaint.reset(); siteModal = new bootstrap.Modal(document.getElementById(\'modal_complaint\')); siteModal.show(); return false;" title="Пожаловаться">';
+$html .= '<div class="comment__icon" onclick="form_complaint_id.value = '.$id.'; form_complaint.reset(); return false;" title="Пожаловаться">';
 $html .= '<svg height="20" width="20" class="icon icon--v_flag"><use xlink:href="#v_flag"></use></svg>';            
 $html .= '</div>';
 $html .= '<div class="comment__break"></div>';
@@ -133,12 +131,12 @@ if (!empty($image))
 
 
 $html .= '<div class="comment__action">Ответить</div>';
-$html .= '<div style="cursor: pointer;" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">';
+$html .= '<div id="dropdownMenuButton1" class="ddMenu" data-bs-toggle="dropdown" >';
 $html .= '<svg class="icon icon--v_etc" width="16" height="16" xmlns="http://www.w3.org/2000/svg"><use xlink:href="#v_etc"></use></svg>';                
 $html .= '</div>';
 $html .= '<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">';
-$html .= '<li><a class="dropdown-item comment-edit" href="#"><svg height="20" width="20" class="icon icon--v_pen"><use xlink:href="#v_pen"></use></svg> Редактировать</a></li>';
-$html .= '<li><a class="dropdown-item" href="#" onclick="ajax(\'delete.php?id='.$id.'\'); return false;"><svg height="20" width="20" class="icon icon--v_pen"><use xlink:href="#v_delete"></use></svg> Удалить</a></li>';
+$html .= '<li><button class="dropdown-item comment-edit" ><svg height="20" width="20" class="icon icon--v_pen"><use xlink:href="#v_pen"></use></svg> Редактировать</button></li>';
+$html .= '<li><button class="dropdown-item" onclick="ajax(\'delete.php?id='.$id.'\');"><svg height="20" width="20" class="icon icon--v_pen"><use xlink:href="#v_delete"></use></svg> Удалить</button></li>';
 $html .= '</ul>';
 $html .= '<div id="comment_vote_'.$id.'" class="vote vote--comment">';
 $html .= '<div class="vote__button vote__button--minus" onclick="ajax(\'rating.php?value=0&id='.$id.'\'); return false;">';

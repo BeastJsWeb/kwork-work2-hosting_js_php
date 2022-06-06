@@ -123,7 +123,7 @@
 }
 @font-face {
     font-family: "Rubik";
-    src: url('./fontsRubik-Bold.woff2') format('woff2');
+    src: url('./fonts/Rubik-Bold.woff2') format('woff2');
     font-weight: 700;
     font-style: normal;
     font-display: swap;
@@ -179,6 +179,7 @@ header {
 #top_menu_wide div {
     z-index: 1;
     color: white;
+    font-weight: 700;
 }
 #top_menu_2, #top_menu_3, #top_menu_4, #top_menu_narrow, #el2-panel, #exit, br, .nav {
     display: none;
@@ -205,6 +206,7 @@ header {
     padding: 7px 10px;
     border-radius: 5px;
     cursor: pointer;
+    font-weight: 700;
 }
 .grid .grid-form form input {
     background: white;
@@ -308,7 +310,7 @@ body > p, main, footer {
     justify-content: end;
     align-items: center;
     gap: 0 10px;
-    zoom: 0.9;
+    zoom: 0.8;
 }
 .vote .vote__value {
     background-color: #EEEEEE;
@@ -361,6 +363,34 @@ body > p, main, footer {
     opacity: 0.8;
     width: max-content;
 }
+.comment--reply {
+    margin-left: 15px;
+    position: relative;
+}
+.comment--reply + .comment--reply {
+     margin-left: 30px;
+}
+.comment--reply + .comment--reply + .comment--reply {
+     margin-left: 45px;
+}
+.comment--reply + .comment--reply + .comment--reply  + .comment--reply {
+     margin-left: 60px;
+}
+.comment--reply + .comment--reply + .comment--reply  + .comment--reply + .comment--reply {
+     margin-left: 75px;
+}
+.comment--reply .comment__branch {
+    position: absolute;
+    content: '';
+    width: 12px;
+    height: 40px;
+    left: -15px;
+    top: -25px;
+    border: 1px solid rgba(0,0,0,.15);
+    border-top: none;
+    border-right: none;
+    border-bottom-left-radius: 8px;
+}
 .comment__author:hover, .comment__detail:hover, .comment__action:hover {
     cursor: pointer;
     color: #318CE7;
@@ -370,6 +400,7 @@ body > p, main, footer {
     display: flex;
     align-items: center;
     width: max-content;
+    cursor: pointer;
 }
 #comment_form {
     grid-area: 6 / 1 / 5 / 6;
@@ -380,17 +411,17 @@ body > p, main, footer {
     display: none;
     min-width: 10rem;
     padding: 0.5rem 0;
-    margin: 0;
-    font-size: 1rem;
+    margin: 120px 0 0 80px;
     color: #212529;
-    text-align: left;
-    list-style: none;
     background-color: #fff;
-    background-clip: padding-box;
     border: 1px solid rgba(0,0,0,.15);
     border-radius: 0.25rem;
 }
-.dropdown-menu.show {
+.dropdown-menu button {
+    font-size: 16px;
+    padding: 5px 0;
+}
+.show + .dropdown-menu {
     display: block;
 }
 .comment__break {

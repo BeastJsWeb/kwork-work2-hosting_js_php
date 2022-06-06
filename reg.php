@@ -272,9 +272,7 @@ if (!$error)
   
   if ($res === true)
   {
-    mysqli_query($db, "INSERT INTO `users` (`name`, `surname`, `middlename`, `gender`, `email`, `password`, `country`, `sity`, `work`, `post`, `company`, `about`) VALUES ('".$name."', '".$surname."', '".$middlename."', '".$gender."', '".$email."', '".$password_hash."', '".$country."', '".$sity."', '".$work."', '".$post."', '".$company."', '".$about."')") or die('Ошибка добавления нового пользователя');
-  
-    $js .= 'siteModal.hide();';   
+    mysqli_query($db, "INSERT INTO `users` (`name`, `surname`, `middlename`, `gender`, `email`, `password`, `country`, `sity`, `work`, `post`, `company`, `about`) VALUES ('".$name."', '".$surname."', '".$middlename."', '".$gender."', '".$email."', '".$password_hash."', '".$country."', '".$sity."', '".$work."', '".$post."', '".$company."', '".$about."')") or die('Ошибка добавления нового пользователя');  
   }
   else
   {

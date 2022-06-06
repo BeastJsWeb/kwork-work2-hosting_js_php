@@ -8,8 +8,6 @@ if (!isset($_SESSION['USER_ID']))
 {  
   $js .= 'form_register.reset();';  
   $js .= 'grecaptcha.reset(recaptcha_reg);';  
-  $js .= 'siteModal = new bootstrap.Modal(document.getElementById("modal_login"));';
-  $js .= 'siteModal.show();';
     
   exit(json_encode(['data' => $js]));
 }    

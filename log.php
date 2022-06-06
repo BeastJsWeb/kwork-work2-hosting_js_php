@@ -84,8 +84,6 @@ if (!$error)
     $row = mysqli_fetch_array($query);
     
     $_SESSION['USER_ID'] = $row['id'];
-    
-    $js .= 'siteModal.hide();';
   }
   else
   {

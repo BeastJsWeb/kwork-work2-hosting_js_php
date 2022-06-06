@@ -5,11 +5,8 @@ $js = '';
 
 if (!isset($_SESSION['USER_ID']))
 {  
-  $js .= 'siteModal.hide();';  
   $js .= 'form_register.reset();';  
   $js .= 'grecaptcha.reset(recaptcha_reg);';  
-  $js .= 'siteModal = new bootstrap.Modal(document.getElementById("modal_login"));';
-  $js .= 'siteModal.show();';
     
   exit(json_encode(['data' => $js]));
 }    
@@ -27,7 +24,5 @@ if (mysqli_num_rows($query))
   
   sendMail(EMAIL, $title, $text);
 }
-
-$js .= 'siteModal.hide();';
 
 exit(json_encode(['data' => $js], JSON_UNESCAPED_UNICODE));
