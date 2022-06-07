@@ -128,9 +128,9 @@
     font-style: normal;
     font-display: swap;
 }
-   /* fonts */
+/* fonts */
 
-   body {
+body {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -213,6 +213,9 @@ header {
     border: 2px solid black;
     padding: 7px 10px;
     border-radius: 5px;
+    background-image: url(/my-design/search.png);
+    background-repeat: no-repeat;
+    background-position: 100% 50%;
 }
 .nav {
     position: absolute;
@@ -227,6 +230,12 @@ header {
 .nav li {
     padding: 7px 20px;
     border-bottom: 1px solid #EFC07B;
+}
+.nav li .parent {
+    display: block;
+    background-image: url(/detal/downArrow.png);
+    background-repeat: no-repeat;
+    background-position: 100% 50%;
 }
 .nav ul {
     margin: 10px 0 -5px 0;
@@ -402,16 +411,22 @@ body > p, main, footer {
     width: max-content;
     cursor: pointer;
 }
+#dropdownMenuButton1 summary {
+     display: flex;
+     margin-top: 10px;
+}
+#dropdownMenuButton1 summary::marker {
+    color: transparent;
+}
 #comment_form {
     grid-area: 6 / 1 / 5 / 6;
 }
 .dropdown-menu {
+    display: block;
     position: absolute;
     z-index: 2;
-    display: none;
     min-width: 10rem;
     padding: 0.5rem 0;
-    margin: 120px 0 0 80px;
     color: #212529;
     background-color: #fff;
     border: 1px solid rgba(0,0,0,.15);
@@ -421,9 +436,6 @@ body > p, main, footer {
     font-size: 16px;
     padding: 5px 0;
 }
-.show + .dropdown-menu {
-    display: block;
-}
 .comment__break {
     grid-area: 5 / 4 / 6 / 5;
     width: max-content;
@@ -432,7 +444,7 @@ body > p, main, footer {
     grid-area: 5 / 4 / 6 / 6;
     display: none
 }
-.comments_pseudo_form_up, .comments_pseudo_form, .dropdown-menu {
+.comments_pseudo_form_up, .comments_pseudo_form {
     display: none;
 }
 

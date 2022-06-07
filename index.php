@@ -48,7 +48,7 @@ foreach ($comments as $k => $v)
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="main.css" rel="stylesheet">
+    <link href="main.css" rel="stylesheet" type="text/css">
   </head>
 
   <body id='body'>
@@ -530,13 +530,13 @@ foreach ($comments as $k => $v)
                   if ($row['user_id'] == $_SESSION['USER_ID'] && time() - strtotime($row['time_add']) < 300)
                   {
                     ?>
-                    <div id="dropdownMenuButton1" class="ddMenu" data-bs-toggle="dropdown" >
-                      <svg class="icon icon--v_etc" width="16" height="16" xmlns="http://www.w3.org/2000/svg"><use xlink:href="#v_etc"></use></svg>
-                    </div>
-                    <ul class="dropdown-menu">
-                      <li><button class="dropdown-item comment-edit"><svg height="20" width="20" class="icon icon--v_pen"><use xlink:href="#v_pen"></use></svg> Редактировать</button></li>
-                      <li><button class="dropdown-item" onclick="ajax('delete.php?id=<?php echo $row['id']; ?>');"><svg height="20" width="20" class="icon icon--v_pen"><use xlink:href="#v_delete"></use></svg> Удалить</button></li>
-                    </ul>
+                    <details id="dropdownMenuButton1" class="ddMenu" data-bs-toggle="dropdown" >
+                      <summary><svg class="icon icon--v_etc" width="16" height="16" xmlns="http://www.w3.org/2000/svg"><use xlink:href="#v_etc"></use></svg></summary>
+                      <ul class="dropdown-menu">
+                        <li><button class="dropdown-item comment-edit"><svg height="20" width="20" class="icon icon--v_pen"><use xlink:href="#v_pen"></use></svg> Редактировать</button></li>
+                        <li><button class="dropdown-item" onclick="ajax('delete.php?id=<?php echo $row['id']; ?>');"><svg height="20" width="20" class="icon icon--v_pen"><use xlink:href="#v_delete"></use></svg> Удалить</button></li>
+                      </ul>
+                    </details>
                     <?php
                   }
                 }
@@ -895,6 +895,6 @@ foreach ($comments as $k => $v)
       <?php
     }
     ?>
-    <script src="main.js?v=9"></script>
+    <script src="main.js"></script>
   </body>
 </html>

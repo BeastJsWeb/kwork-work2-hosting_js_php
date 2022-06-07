@@ -131,13 +131,13 @@ if (!empty($image))
 
 
 $html .= '<div class="comment__action">Ответить</div>';
-$html .= '<div id="dropdownMenuButton1" class="ddMenu" data-bs-toggle="dropdown" >';
-$html .= '<svg class="icon icon--v_etc" width="16" height="16" xmlns="http://www.w3.org/2000/svg"><use xlink:href="#v_etc"></use></svg>';                
-$html .= '</div>';
-$html .= '<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">';
+$html .= '<details id="dropdownMenuButton1" class="ddMenu" data-bs-toggle="dropdown" >';
+$html .= '<summary><svg class="icon icon--v_etc" width="16" height="16" xmlns="http://www.w3.org/2000/svg"><use xlink:href="#v_etc"></use></svg></summary>';                
+$html .= ' <ul class="dropdown-menu">';
 $html .= '<li><button class="dropdown-item comment-edit" ><svg height="20" width="20" class="icon icon--v_pen"><use xlink:href="#v_pen"></use></svg> Редактировать</button></li>';
 $html .= '<li><button class="dropdown-item" onclick="ajax(\'delete.php?id='.$id.'\');"><svg height="20" width="20" class="icon icon--v_pen"><use xlink:href="#v_delete"></use></svg> Удалить</button></li>';
 $html .= '</ul>';
+$html .= '</details>';
 $html .= '<div id="comment_vote_'.$id.'" class="vote vote--comment">';
 $html .= '<div class="vote__button vote__button--minus" onclick="ajax(\'rating.php?value=0&id='.$id.'\'); return false;">';
 $html .= '<svg class="icon icon--v_arrow_down" width="24" height="24" xmlns="http://www.w3.org/2000/svg"><use xlink:href="#thumbs-down"></use></svg>';    

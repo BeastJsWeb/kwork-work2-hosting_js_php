@@ -16,8 +16,8 @@ if (empty($recaptcha))
   $html = str_replace(array("\r", "\n"), " ", $html);    
   $html = addslashes($html);    
   
-  $js .= 'register_form_message.classList.remove("d-none");'; 
-  $js .= 'register_form_message.innerHTML = "'.$html.'";'; 
+  $js .= 'login_form_message.classList.remove("d-none");'; 
+  $js .= 'login_form_message.innerHTML = "'.$html.'";'; 
 }
 else
 {
