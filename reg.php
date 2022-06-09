@@ -98,31 +98,7 @@ if (empty($gender))
     
   $js .= 'form_register_gender.classList.add("is-invalid");'; 
   $js .= 'form_register_gender_message.textContent = "Поле необходимо заполнить";';
-}
-
-if (empty($location))
-{
-  $error = true;  
-    
-  $js .= 'form_register_location.classList.add("is-invalid");'; 
-  $js .= 'form_register_location_message.textContent = "Поле необходимо заполнить";';
-}
-
-if (empty($activity))
-{
-  $error = true;  
-    
-  $js .= 'form_register_activity.classList.add("is-invalid");'; 
-  $js .= 'form_register_activity_message.textContent = "Поле необходимо заполнить";';
-}
-
-if (empty($jobTitle))
-{
-  $error = true;  
-    
-  $js .= 'form_register_jobTitle.classList.add("is-invalid");'; 
-  $js .= 'form_register_jobTitle_message.textContent = "Поле необходимо заполнить";';
-}
+} 
 
 $email = isset($_POST['email']) ? filter_var(trim($_POST['email']), FILTER_SANITIZE_STRING) : null;
 
@@ -153,42 +129,24 @@ else
    }    
 }   
 
-$country = isset($_POST['country']) ? filter_var(trim($_POST['country']), FILTER_SANITIZE_STRING) : null;
+$location = isset($_POST['location']) ? filter_var(trim($_POST['location']), FILTER_SANITIZE_STRING) : null;
 
-if (empty($country))
+if (empty($location))
 {
   $error = true;  
     
-  $js .= 'form_register_country.classList.add("is-invalid");'; 
-  $js .= 'form_register_country_message.textContent = "Поле необходимо заполнить";';
+  $js .= 'form_register_location.classList.add("is-invalid");'; 
+  $js .= 'form_register_location_message.textContent = "Поле необходимо заполнить";';
 } 
-else if (!preg_match("~^[a-zа-яё\-\d\;\:\"\.\/\\\!\? ]+$~mui", $country)) 
+else if (!preg_match("~^[a-zа-яё\-\d\;\:\"\.\/\\\!\? ]+$~mui", $location)) 
 {   
   $error = true;  
     
-  $js .= 'form_register_country.classList.add("is-invalid");'; 
-  $js .= 'form_register_country_message.textContent = "Содержит недопустимые символы";';
+  $js .= 'form_register_location.classList.add("is-invalid");'; 
+  $js .= 'form_register_location_message.textContent = "Содержит недопустимые символы";';
 }
 
-
-$sity = isset($_POST['sity']) ? filter_var(trim($_POST['sity']), FILTER_SANITIZE_STRING) : null;
-
-if (empty($sity))
-{
-  $error = true;  
-    
-  $js .= 'form_register_sity.classList.add("is-invalid");'; 
-  $js .= 'form_register_sity_message.textContent = "Поле необходимо заполнить";';
-} 
-else if (!preg_match("~^[a-zа-яё\-\d\;\:\"\.\/\\\!\? ]+$~mui", $sity)) 
-{   
-  $error = true;  
-    
-  $js .= 'form_register_sity.classList.add("is-invalid");'; 
-  $js .= 'form_register_sity_message.textContent = "Содержит недопустимые символы";';
-}
-
-$work = isset($_POST['work']) ? trim($_POST['work']) : null;
+$work = isset($_POST['work']) ? (int)$_POST['work'] : 0;
 
 if (empty($work))
 {
@@ -197,17 +155,8 @@ if (empty($work))
   $js .= 'form_register_work.classList.add("is-invalid");'; 
   $js .= 'form_register_work_message.textContent = "Поле необходимо заполнить";';
 } 
-else if (!preg_match("~^[a-zа-яё\-\d\;\:\"\.\/\\\!\?\&\,\'\`»«\' ]+$~mui", $work)) 
-{   
-  $error = true;  
-    
-  $js .= 'form_register_work.classList.add("is-invalid");'; 
-  $js .= 'form_register_work_message.textContent = "Содержит недопустимые символы";';
-}
 
-$work = filter_var($work, FILTER_SANITIZE_STRING);
-
-$post = isset($_POST['post']) ? trim($_POST['post']) : null;
+$post = isset($_POST['post']) ? (int)$_POST['post'] : 0;
 
 if (empty($post))
 {
@@ -216,15 +165,6 @@ if (empty($post))
   $js .= 'form_register_post.classList.add("is-invalid");'; 
   $js .= 'form_register_post_message.textContent = "Поле необходимо заполнить";';
 } 
-else if (!preg_match("~^[a-zа-яё\-\d\;\:\"\.\/\\\!\?\&\,\'\`»«\' ]+$~mui", $post)) 
-{   
-  $error = true;  
-    
-  $js .= 'form_register_post.classList.add("is-invalid");'; 
-  $js .= 'form_register_post_message.textContent = "Содержит недопустимые символы";';
-}
-
-$post = filter_var($post, FILTER_SANITIZE_STRING);
 
 $company = isset($_POST['company']) ? trim($_POST['company']) : null;
 
@@ -256,7 +196,7 @@ if (!$rules)
 {
   $error = true;  
     
-  $js .= 'form_register_rules.classList.add("is-invalid");'; 
+  $js .= 'form_register_rules_label.classList.add("is-invalid");'; 
 }
 
 if (!$error)
@@ -272,7 +212,8 @@ if (!$error)
   
   if ($res === true)
   {
-    mysqli_query($db, "INSERT INTO `users` (`name`, `surname`, `middlename`, `gender`, `email`, `password`, `country`, `sity`, `work`, `post`, `company`, `about`) VALUES ('".$name."', '".$surname."', '".$middlename."', '".$gender."', '".$email."', '".$password_hash."', '".$country."', '".$sity."', '".$work."', '".$post."', '".$company."', '".$about."')") or die('Ошибка добавления нового пользователя');  
+    mysqli_query($db, "INSERT INTO `users` (`name`, `surname`, `middlename`, `gender`, `email`, `password`, `location`, `work`, `post`, `company`, `about`) VALUES ('".$name."', '".$surname."', '".$middlename."', '".$gender."', '".$email."', '".$password_hash."', '".$location."', '".$work."', '".$post."', '".$company."', '".$about."')") or die('Ошибка добавления нового пользователя');
+    
   }
   else
   {

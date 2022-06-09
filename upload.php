@@ -11,7 +11,14 @@ if (empty($_FILES['loadfile']['name']))
     
 if (!in_array($_FILES['loadfile']['type'], array('image/jpeg','image/png','image/gif')))
 {	
-  exit(json_encode(['data' => $js], JSON_UNESCAPED_UNICODE));                     
+  $html .= '<div class="andropov_uploader__preview_item__inner text-danger">Недопустимый формат</div>';
+
+  $html = str_replace(["\r","\n"]," ",$html);    
+  $html = addslashes($html);   
+
+  $js .= 'comment_uploader.innerHTML = "'.$html.'";';
+
+  exit(json_encode(['data' => $js], JSON_UNESCAPED_UNICODE));   
 }
     
 if (!is_uploaded_file($_FILES["loadfile"]["tmp_name"]))
@@ -21,6 +28,13 @@ if (!is_uploaded_file($_FILES["loadfile"]["tmp_name"]))
     
 if ($_FILES["loadfile"]["size"] > 1024*2000) 	
 {  
+  $html .= '<div class="andropov_uploader__preview_item__inner text-danger">Файл слишком большой</div>';
+
+  $html = str_replace(["\r","\n"]," ",$html);    
+  $html = addslashes($html);   
+
+  $js .= 'comment_uploader.innerHTML = "'.$html.'";';
+
   exit(json_encode(['data' => $js], JSON_UNESCAPED_UNICODE));                
 }
        

@@ -1,4 +1,3 @@
-var siteModal;
 var recaptcha_reg;
 var recaptcha_log;
 
@@ -19,24 +18,7 @@ document.addEventListener('DOMContentLoaded', function () {
   document.querySelector("body").addEventListener("keydown", (e) => { if (e.target.closest(".form-validate")) { e.target.classList.remove('is-invalid'); } });
   document.querySelector("body").addEventListener("input", (e) => { if (e.target.closest(".form-validate")) { e.target.classList.remove('is-invalid'); } });    
     
-  comment_input_message.oninput = () =>
-  {  
-    if (user_id == 0)  
-    {    
-      if (typeof siteModal !== 'object')  
-      {   
-        siteModal = new bootstrap.Modal(document.getElementById('modal_login')); 
-                      
-        siteModal.show();                   
-      }
-      else if (!siteModal._isShown)
-      {
-        siteModal = new bootstrap.Modal(document.getElementById('modal_login')); 
-                      
-        siteModal.show();                     
-      }          
-    }    
-      
+  comment_input_message.oninput = () => {     
     m();           
   };
        
@@ -171,24 +153,42 @@ document.addEventListener('DOMContentLoaded', function () {
   openModal('.comment__icon', 'modal-openComp');// modal__complaint--open
   closeModal('.btn-close');
 
+  document.querySelectorAll('.comments_pseudo_form') // form__pseudo --show/hide
+  .forEach(btn => {
+    btn.addEventListener('click', () => {
+      
+      document.querySelectorAll('.comments_pseudo_form')
+      .forEach(btn => {
+        btn.classList.toggle('--show');
+      });
+    });
+  });
+
   if (user_id == 0) { //IF USER NOT LOGGED
+
     const formLogPass = document.getElementById('form_login_password');
     const formLogin = document.getElementById('form_login');
     const formLogError = document.getElementById('form_login_name_message');
+    const btnLogin = document.getElementById('form_login--submit');
     let passEnter = 0;
 
     formLogin.addEventListener('submit', e => {
       e.preventDefault();
+
+      if (localStorage.getItem('pass') !== null) {
+
+        btnLogin.disabled = true;
+      }
     });
 
     formLogin.addEventListener('change', () => {
     
       if (passEnter >= 3 && localStorage.getItem('pass') === null) {
 
+        btnLogin.disabled = true;
         formLogPass.setAttribute('readonly', '');
         formLogPass.classList.add('is-invalid');
         localStorage.setItem('pass', 'blocked');
-
         formLogError.innerHTML = 
         '<div>Число попыток ввода пароля превышено, доступ ограничен на 10 мин</div>';
 
@@ -198,10 +198,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
           formLogPass.setAttribute('readonly', '');
           formLogPass.classList.add('is-invalid');
-
           formLogError.innerHTML = 
           '<div>Число попыток ввода пароля превышено, доступ ограничен на 10 мин</div>';
         }
+      }
+
+      if (localStorage.getItem('pass') !== null) {
 
         setTimeout(() => {
           formLogPass.removeAttribute('readonly');
@@ -209,21 +211,57 @@ document.addEventListener('DOMContentLoaded', function () {
           formLogPass.classList.remove('is-invalid');
           formLogError.innerHTML = '';
           passEnter = 0;
+          btnLogin.disabled = false;
         }, 20000); // 10 min 
+        
       }
     });
 
     formLogPass.addEventListener('click', () => { // pass blocked
 
-      if (localStorage.getItem('pass') === null) {
-
+      if (passEnter <= 3 && localStorage.getItem('pass') === null) {
+        
         passEnter++;
-        console.log(passEnter);
+        console.log(passEnter); 
       }
     });
 
     document.getElementById('form_register')
     .addEventListener('submit', e => e.preventDefault());
+
+    document.querySelectorAll('.btns_reg') // modal__registration--open
+    .forEach(btn => {
+      btn.addEventListener('click',() => {
+        body.className = '';
+        body.classList.add('modal-openReg');
+        
+        if (body.classList.contains('modal-openReg')) {
+
+          getFormRegister (
+            'form_register_location', 'form__location--onload'
+          );
+          getFormRegister (
+            'form_register_work', 'form__work--onload'
+          );
+          getFormRegister (
+            'form_register_post', 'form__post--onload'
+          );
+          
+        }
+
+        function getFormRegister(getFrom, sendTo) {
+
+          const xhr= new XMLHttpRequest();
+          xhr.open('GET', `./forms/${getFrom}.html`, true);
+          xhr.onreadystatechange= function() {
+              if (this.readyState!==4) return;
+              if (this.status!==200) return; // or whatever error handling you want
+              document.getElementById(sendTo).innerHTML= this.responseText;
+          };
+          xhr.send();
+        }
+      });
+    });
 
     document.getElementById('form_restore')
     .addEventListener('submit', e => e.preventDefault());
@@ -231,7 +269,6 @@ document.addEventListener('DOMContentLoaded', function () {
     openModal('.btns_login', 'modal-open'); // modal__login--open
     openModal('.vote__button', 'modal-open');// modal__login--open
     openModal('.comments_form', 'modal-open');// modal__login--open
-    openModal('.btns_reg', 'modal-openReg');// modal__registration--open
 
     document.getElementById('btn_rest')// modal__restore--open
     .addEventListener('click',() => {
@@ -252,22 +289,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
   } else { //IF USER LOGGED
 
+    document.getElementById('form_complaint')
+    .addEventListener('submit', e => e.preventDefault());
+
     closeModal('.btn-primary');
-
-    const ddMenu = document.getElementById('dropdownMenuButton1');
-
-    /*body.addEventListener('click', () => {
-      ddMenu.removeAttribute('open');
-    });*/
-   
-   
-    /*document.querySelectorAll('.dropdown-item')//dropdownMenu--edit/delete
-    .forEach(btn => {
-
-      btn.ajax('comment.php');  
-      ddMenu.removeAttribute('open');
-
-    });*/
   }
 });
    

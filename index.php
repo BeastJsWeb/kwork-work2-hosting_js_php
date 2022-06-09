@@ -422,7 +422,7 @@ foreach ($comments as $k => $v)
         {
           ?>
           <div class="comments__header l-island-a l-clear">
-          <div id="comment_pseudo_form_up" class="comments_pseudo_form" data-inversion="-1" onclick="a(false);">
+          <div id="comment_pseudo_form_up" class="comments_pseudo_form --show" data-inversion="-1" onclick="a(false);">
             <div class="comments_pseudo_form__text">Написать комментарий...</div>
             <div class="comments_pseudo_form__buttons">
             <div class="comments_pseudo_form__button">
@@ -527,13 +527,13 @@ foreach ($comments as $k => $v)
                 <?php
                 if (isset($_SESSION['USER_ID']))
                 {
-                  if ($row['user_id'] == $_SESSION['USER_ID'] && time() - strtotime($row['time_add']) < 300)
+                  if ($row['user_id'] == $_SESSION['USER_ID'] && time() - strtotime($row['time_add']) < 300 && !end($row['childs']))
                   {
                     ?>
                     <details id="dropdownMenuButton1" class="ddMenu" data-bs-toggle="dropdown" >
                       <summary><svg class="icon icon--v_etc" width="16" height="16" xmlns="http://www.w3.org/2000/svg"><use xlink:href="#v_etc"></use></svg></summary>
                       <ul class="dropdown-menu">
-                        <li><button class="dropdown-item comment-edit"><svg height="20" width="20" class="icon icon--v_pen"><use xlink:href="#v_pen"></use></svg> Редактировать</button></li>
+                        <li><button class="dropdown-item comment-edit" ><svg height="20" width="20" class="icon icon--v_pen"><use xlink:href="#v_pen"></use></svg> Редактировать</button></li>
                         <li><button class="dropdown-item" onclick="ajax('delete.php?id=<?php echo $row['id']; ?>');"><svg height="20" width="20" class="icon icon--v_pen"><use xlink:href="#v_delete"></use></svg> Удалить</button></li>
                       </ul>
                     </details>
@@ -712,35 +712,17 @@ foreach ($comments as $k => $v)
 
           <div>
             <label  class="form-label">Территория проживания</label>
-            <select class="form-select form-select-sm form-validate" id="form_register_location">
-            <option value="0">Выбрать...</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            </select>
-            <div id="form_register_location_message" class="invalid-feedback"></div>
+            <div id='form__location--onload' ></div>
           </div>
 
           <div>
             <label  class="form-label">Вид деятельности</label>
-            <select class="form-select form-select-sm form-validate" id='form_register_activity' >
-            <option value="0">Выбрать...</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            </select>
-            <div id="form_register_activity_message" class="invalid-feedback"></div>
+            <div id='form__work--onload' ></div>
           </div>
 
           <div>
             <label  class="form-label">Должность</label>
-            <select class="form-select form-select-sm form-validate" id='form_register_jobTitle' >
-            <option value="0">Выбрать...</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            </select>
-            <div id="form_register_jobTitle_message" class="invalid-feedback"></div>
+            <div id='form__post--onload' ></div>
           </div>
 
           <div class="col-md-6">
@@ -757,7 +739,7 @@ foreach ($comments as $k => $v)
           <div class="col-12">
             <div class="form-check">
             <input type="checkbox" class="form-check-input form-validate" name="rules" value="1" id="form_register_rules">
-            <label class="form-check-label" for="form_register_rules">Соглашаюсь с обработкой персональных данных</label>
+            <label id='form_register_rules_label' class="form-check-label" for="form_register_rules">Соглашаюсь с обработкой персональных данных</label>
             </div>
           </div>
 
@@ -805,7 +787,7 @@ foreach ($comments as $k => $v)
             <a href="#" class="btns_reg link-info" >Регистрация</a>
             <a href="#" id='btn_rest' class="link-info">Забыли пароль</a>
           </div>
-          <button class="btn btn-primary" onclick="ajax('log.php', '#form_login');">Войти</button>
+          <button id='form_login--submit' class="btn btn-primary" onclick="ajax('log.php', '#form_login');">Войти</button>
         </div>
         </form>
       </div>

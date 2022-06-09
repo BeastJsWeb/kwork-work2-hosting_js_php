@@ -9,7 +9,7 @@ akk_toggleMenu.onclick = (e) => {
 		akk_nav.style.display = 'block';
 	else
 		akk_nav.style.display = 'none';
-}
+};
 
 akk_subnav.forEach((el) => {
 	if (el.parentNode.classList.contains('akk_metka'))

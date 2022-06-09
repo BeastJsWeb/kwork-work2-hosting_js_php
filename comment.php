@@ -167,7 +167,7 @@ else
   }
   else 
   {
-    $js .= 'comment_box.insertAdjacentHTML("afterbegin", "'.$html.'");';  
+    $js .= 'comment_box.insertAdjacentHTML("afterbegin", "'.$html.'");'; 
   } 
 }  
 
