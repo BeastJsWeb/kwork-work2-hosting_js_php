@@ -133,9 +133,11 @@ document.addEventListener('DOMContentLoaded', function () {
   const body = document.getElementById('body');
 
   function openModal(button, addClass) { //modal--open
+
     document.querySelectorAll(button)
     .forEach(btn => {
       btn.addEventListener('click',() => {
+
         body.className = '';
         body.classList.add(addClass);
       });
@@ -143,9 +145,11 @@ document.addEventListener('DOMContentLoaded', function () {
   }
  
   function closeModal(button) { //modal--close
+
     document.querySelectorAll(button)
     .forEach(btn => {
       btn.addEventListener('click',
+
       () => body.className = '');  
     });
   }
@@ -159,31 +163,38 @@ document.addEventListener('DOMContentLoaded', function () {
       
       document.querySelectorAll('.comments_pseudo_form')
       .forEach(btn => {
+
         btn.classList.toggle('--show');
       });
     });
   });
 
+  document.getElementById('comment_send_button_text')// form__pseudo_up --show
+  .addEventListener('click', () => {
+
+    const fromPseudoUp = document.querySelector('.comments_pseudo_form');
+
+    if (!fromPseudoUp.classList.contains('--show')) {
+
+      fromPseudoUp.classList.add('--show');
+    }
+  });
+
   if (user_id == 0) { //IF USER NOT LOGGED
 
-    const formLogPass = document.getElementById('form_login_password');
     const formLogin = document.getElementById('form_login');
-    const formLogError = document.getElementById('form_login_name_message');
-    const btnLogin = document.getElementById('form_login--submit');
+    const formLogPass = document.getElementById('form_login_password');
     let passEnter = 0;
 
-    formLogin.addEventListener('submit', e => {
-      e.preventDefault();
-
-      if (localStorage.getItem('pass') !== null) {
-
-        btnLogin.disabled = true;
-      }
-    });
+    formLogin.addEventListener('submit', e => e.preventDefault());
 
     formLogin.addEventListener('change', () => {
+
+      const storageGet = localStorage.getItem('pass');
+      const btnLogin = document.getElementById('form_login--submit');
+      const formLogError = document.getElementById('form_login_name_message');
     
-      if (passEnter >= 3 && localStorage.getItem('pass') === null) {
+      if (passEnter >= 3 && storageGet === null || passEnter == 0 && storageGet !== null) {
 
         btnLogin.disabled = true;
         formLogPass.setAttribute('readonly', '');
@@ -191,16 +202,6 @@ document.addEventListener('DOMContentLoaded', function () {
         localStorage.setItem('pass', 'blocked');
         formLogError.innerHTML = 
         '<div>Число попыток ввода пароля превышено, доступ ограничен на 10 мин</div>';
-
-      } else {
-
-        if (passEnter == 0 && localStorage.getItem('pass') !== null) {
-
-          formLogPass.setAttribute('readonly', '');
-          formLogPass.classList.add('is-invalid');
-          formLogError.innerHTML = 
-          '<div>Число попыток ввода пароля превышено, доступ ограничен на 10 мин</div>';
-        }
       }
 
       if (localStorage.getItem('pass') !== null) {
@@ -212,17 +213,15 @@ document.addEventListener('DOMContentLoaded', function () {
           formLogError.innerHTML = '';
           passEnter = 0;
           btnLogin.disabled = false;
-        }, 20000); // 10 min 
-        
+        }, 10000); // 10 min 
       }
     });
 
-    formLogPass.addEventListener('click', () => { // pass blocked
+    formLogPass.addEventListener('change', () => { // pass blocked
 
       if (passEnter <= 3 && localStorage.getItem('pass') === null) {
         
         passEnter++;
-        console.log(passEnter); 
       }
     });
 
@@ -232,21 +231,18 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('.btns_reg') // modal__registration--open
     .forEach(btn => {
       btn.addEventListener('click',() => {
+
         body.className = '';
         body.classList.add('modal-openReg');
         
         if (body.classList.contains('modal-openReg')) {
 
           getFormRegister (
-            'form_register_location', 'form__location--onload'
-          );
+            'form_register_country', 'form__country--onload' );
           getFormRegister (
-            'form_register_work', 'form__work--onload'
-          );
+            'form_register_work', 'form__work--onload' );
           getFormRegister (
-            'form_register_post', 'form__post--onload'
-          );
-          
+            'form_register_post', 'form__post--onload' );
         }
 
         function getFormRegister(getFrom, sendTo) {
@@ -254,9 +250,11 @@ document.addEventListener('DOMContentLoaded', function () {
           const xhr= new XMLHttpRequest();
           xhr.open('GET', `./forms/${getFrom}.html`, true);
           xhr.onreadystatechange= function() {
-              if (this.readyState!==4) return;
-              if (this.status!==200) return; // or whatever error handling you want
-              document.getElementById(sendTo).innerHTML= this.responseText;
+
+            if (this.readyState!==4) return;
+            if (this.status!==200) return;
+
+            document.getElementById(sendTo).innerHTML= this.responseText;
           };
           xhr.send();
         }
@@ -272,6 +270,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     document.getElementById('btn_rest')// modal__restore--open
     .addEventListener('click',() => {
+
       body.className = '';
       body.classList.add('modal-openRest');
     });
@@ -281,6 +280,7 @@ document.addEventListener('DOMContentLoaded', function () {
       btn.addEventListener('click',() => {
 
         if (body.classList.contains('modal-openComp')) {
+
           body.className = '';
           body.classList.add('modal-open');
         } 
@@ -293,6 +293,18 @@ document.addEventListener('DOMContentLoaded', function () {
     .addEventListener('submit', e => e.preventDefault());
 
     closeModal('.btn-primary');
+
+    body.addEventListener('click', () => { // close dropdown menu
+
+      document.querySelectorAll('.ddMenu')
+      .forEach(btn => {
+        
+        if (btn.hasAttribute('open')) {
+
+          btn.removeAttribute('open');
+        }
+      });
+    });
   }
 });
    
@@ -426,7 +438,7 @@ document.addEventListener('DOMContentLoaded', function () {
      modal_preview_image.style.display = "none";    
    }
    
-   function ajax(url = null, form = false)
+    function ajax(url = null, form = false)
    {           
      let post = form ? new FormData(document.querySelector(form)) : '';  
       
@@ -435,21 +447,22 @@ document.addEventListener('DOMContentLoaded', function () {
      request.responseType = "json";
      request.open("POST", url, true);
      request.setRequestHeader("Accept", "application/json, text/javascript, */*; q=0.01");
-     request.setRequestHeader("X-Requested-With", "XMLHttpRequest"); 
+     request.setRequestHeader("X-Requested-With", "XMLHttpRequest");
      request.ontimeout = () => {  };
      request.onerror = () => {  };
      request.onloadstart = () => { showProgressAjax(); };
      request.onloadend = () => { hideProgressAjax(); };
-  
-     request.onload = () => 
+      
+      request.onload = () => 
      { 
        let result = request.response;  
       
-       if (result["data"]) 
+
+       if  ((result?.data)) 
        { 
          try 
          { 
-           eval(result["data"]);             
+           window.eval(result?.data);             
          } 
          catch (err) 
          { 

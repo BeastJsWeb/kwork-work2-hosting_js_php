@@ -1,266 +1,23 @@
-/* обнуление */
-* {
-    padding: 0;
-    margin: 0;
-    border: 0;
-  }
-  
-  :root {
-    --index: calc(1vw + 1vh);
-  }
-
-  *, *:before, *:after {
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-  }
-  
-  :focus, :active {
-    outline: none;
-  }
-  
-  a:focus, a:active {
-    outline: none;
-  }
-  
-  nav, footer, header, aside {
-    display: block;
-  }
-  
-  html, body {
-    height: 100%;
-    width: 100%;
-    font-size: 100%;
-    line-height: 1.1;
-    scroll-behavior: smooth;  /* IE not support */
-    -ms-text-size-adjust: 100%;
-    -moz-text-size-adjust: 100%;
-    -webkit-text-size-adjust: 100%;
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-  }
-  
-  input, button, textarea {
-    font-family: inherit;
-    background: transparent;
-  }
-  
-  input::-ms-clear {
-    display: none;
-  }
-  
-  button {
-    cursor: pointer;
-  }
-  
-  button::-moz-focus-inner {
-    padding: 0;
-    border: 0;
-  }
-  
-  a, a:visited {
-    text-decoration: none;
-    color: inherit;
-  }
-  
-  a:hover {
-    text-decoration: none;
-  }
-  
-  ul li {
-    list-style: none;
-  }
-  
-  img {
-    vertical-align: top;
-    -ms-interpolation-mode: nearest-neighbor;  /* IE */
-  }
-  
-  h1, h2, h3, h4, h5, h6 {
-    font-size: inherit;
-    font-weight: inherit;
-  }
-
-  * {
-    -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none;   /* Chrome/Safari/Opera */
-    -khtml-user-select: none;    /* Konqueror */
-    -moz-user-select: none;      /* Firefox */
-    -ms-user-select: none;       /* Internet Explorer/Edge */
-    user-select: none;           /* Non-prefixed version, currently
-                                    not supported by any browser */
-  }
-  /* обнуление */
-
-  /* fonts */
-@font-face {
-    font-family: "Rubik";
-    src: url('./fonts/Rubik-Light.woff2') format('woff2');
-    font-weight: 300;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: "Rubik";
-    src: url('./fonts/Rubik-Regular.woff2') format('woff2');
-    font-weight: 400;
-    font-style: normal;
-    font-display: swap;
-}
-@font-face {
-    font-family: "Rubik";
-    src: url('./fonts/Rubik-Medium.woff2') format('woff2');
-    font-weight: 500;
-    font-style: normal;
-    font-display: swap;
-}
-@font-face {
-    font-family: "Rubik";
-    src: url('./fonts/Rubik-SemiBold.woff2') format('woff2');
-    font-weight: 600;
-    font-style: normal;
-    font-display: swap;
-}
-@font-face {
-    font-family: "Rubik";
-    src: url('./fonts/Rubik-Bold.woff2') format('woff2');
-    font-weight: 700;
-    font-style: normal;
-    font-display: swap;
-}
-/* fonts */
-
-body {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100vw;
-    margin: 0 auto;
-    padding: 0;
-    height: auto;
-    font-family: 'Rubik';
-    max-width: 100%;
-}
-a {
-    text-decoration: none;
-}
-
-/*header*/
-header, .frame-a, #top_menu_wide {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    margin: 0;
-    padding: 0 5px 5px 5px;
-    gap: 10px;
-}
-header {
-    background-color: #F2F2F2;
-    border-bottom: 2px solid black;
-    border-radius: 5px;
-}
-#top_menu_wide {
-    height: 18em;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-}
-#top_menu_wide img {
-    position: absolute;
-    width: 100%;
-    height: 18em;
-    object-fit: cover;
-    left: 0;
-    top: 0;
-}
-#top_menu_wide div {
-    z-index: 1;
-    color: white;
-    font-weight: 700;
-}
-#top_menu_2, #top_menu_3, #top_menu_4, #top_menu_narrow, #el2-panel, #exit, br, .nav, .nav .decor_left {
-    display: none;
-}
-.grid {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    gap: 10px;
-}
-
-.grid .decor_b, #interest {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    gap: 10px;
-    flex-wrap: wrap;
-}
-.grid .el-panel, #interest > div {
-    border: 2px solid black;
-    padding: 7px 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: 700;
-}
-.grid .grid-form form input {
-    background: white;
-    border: 2px solid black;
-    padding: 7px 10px;
-    border-radius: 5px;
-    background-image: url(/my-design/search.png);
-    background-repeat: no-repeat;
-    background-position: 100% 50%;
-}
-.nav {
-    position: absolute;
-    left: 0;
-    background: #430615;
-    color: white;
-    border-radius: 5px;
-    z-index: 4;
-    width: 100%;
-    max-width: 300px;
-}
-.nav li {
-    padding: 7px 20px;
-    border-bottom: 1px solid #EFC07B;
-}
-.nav li .parent {
-    display: block;
-    background-image: url(/detal/downArrow.png);
-    background-repeat: no-repeat;
-    background-position: 100% 50%;
-}
-.nav ul {
-    margin: 10px 0 -5px 0;
-}
-.nav ul li {
-    background-color: #673432;
-    border-bottom: 3px solid #430615;
-    border-radius: 10px;
-    width: 110%;
-}
-.hover .decor_left {
-    display: block;
-}
-/*header*/
-
-
-body > p, main, footer {
-    background-color: #F2F2F2; 
-    width: 100%;
-}
-
 /*comments*/
+#page_wrapper a {
+    text-decoration: none;
+}
+#page_wrapper button, .modal-dialog button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+#page_wrapper button[data-disabled] {
+    opacity: 0.1;
+}
+#page_wrapper :focus, #page_wrapper:active {
+    outline: none;
+}
 #page_wrapper {
-    padding: 20px 0;
+    padding: 20px 10px;
     width: 100%;
+    max-width: 660px;
+    margin: 0 auto;
 }
 .comments__body {
     display: flex;
@@ -269,7 +26,8 @@ body > p, main, footer {
     gap: 20px;
 }
 .comments__body .comments__title {
-    font-size: 18px;
+    font-size: 20px;
+    align-self: flex-start;
 }
 .comments__content_wrapper, #comment_box {
     display: flex;
@@ -362,6 +120,7 @@ body > p, main, footer {
     font-style: italic;
     color: #6c757d;
     font-size: 14px;
+    padding-bottom: 15px;
 }
 .comment__media {
     grid-area: 4 / 1 / 5 / 6;
@@ -454,6 +213,8 @@ body > p, main, footer {
 .dropdown-menu button {
     font-size: 16px;
     padding: 5px 0;
+    width: 100%;
+    text-align: inherit;
 }
 .comment__break {
     grid-area: 5 / 4 / 6 / 5;
@@ -591,7 +352,16 @@ body > p, main, footer {
 
 
 /*modal*/
-#modal_register, #modal_complaint, .close, .ui-button, #modal_restore, .modal, .thesis__placeholder {
+.btns_login, .btns_reg {
+    cursor: pointer;
+}
+.modal-dialog a {
+    text-decoration: none;
+}
+.modal-open, .modal-openRest, .modal-openComp, .modal-openReg {
+    overflow: hidden;
+}
+#modal_register, #modal_complaint, .close, .ui-button, #modal_restore, .modal, .thesis__placeholder, .modal-dialog hr {
     display: none;
 }
 .modal-open .modal, .modal-open .close, .modal-openReg #modal_register, .modal-openRest #modal_restore, .modal-openComp #modal_complaint {
@@ -649,12 +419,14 @@ body > p, main, footer {
     cursor: pointer;
 }
 .modal-content-image {
-    display: flex;
-    margin: 0 auto;
-    height: 100vh;
+    display: block;
+    margin: auto;
+    max-height: 80vh;
+    height: auto;
     padding: 10vh;
     object-fit: cover;
     max-width: 80vw;
+    width: auto;
 }
 .modal-content .modal-header {
     position: relative;
@@ -697,6 +469,7 @@ body > p, main, footer {
 }
 .modal-body {
     padding: 20px;
+    overflow: auto;
 }
 .modal-body input {
     border: 1px solid #E0E0E0;
@@ -759,6 +532,7 @@ body > p, main, footer {
     grid-area: 8 / 1 / 9 / 7;
     display: flex;
     align-items: center;
+    max-height: 100px;
 }
 .modal-body .row :nth-child(13) {
     grid-area: 9 / 1 / 10 / 7;
@@ -787,7 +561,7 @@ body > p, main, footer {
 .is-invalid~.invalid-feedback {
     display: block;   
 }
-#form__location--onload .is-invalid~.invalid-feedback, #form__work--onload .is-invalid~.invalid-feedback, #form__post--onload .is-invalid~.invalid-feedback {
+#form__country--onload .is-invalid~.invalid-feedback, #form__work--onload .is-invalid~.invalid-feedback, #form__post--onload .is-invalid~.invalid-feedback {
     display: block; 
     margin-top: 5px;
 }
@@ -813,7 +587,7 @@ body > p, main, footer {
 .text-danger {
     color: #dc3545;
 }
-.modal-body textarea, .modal-body select{
+.modal-body textarea, .modal-body select {
     border-radius: 5px;
     border: 1px solid #E0E0E0;
     padding: 4px;
@@ -843,6 +617,10 @@ body > p, main, footer {
     padding: 10px 20px;
     border-radius: 5px;
     float: right;
+}
+.btn-primary[disabled] {
+    filter: grayscale(100%);
+    opacity: 0.4;
 }
 .modal-footer {
     padding: 15px;

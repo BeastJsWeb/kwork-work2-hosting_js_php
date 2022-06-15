@@ -48,7 +48,379 @@ foreach ($comments as $k => $v)
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="main.css" rel="stylesheet" type="text/css">
+    <style>
+      html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video{margin:0;padding:0;border:0;font-family:Arial, Helvetica, sans-serif;vertical-align:inherit;list-style-type:none;}
+      html, body{color:#000;font-size:16px;}
+      @media (max-width: 640px) {
+        html, body{font-size:14px;}
+      }
+
+
+      *{-webkit-box-sizing: border-box;box-sizing: border-box;}
+
+
+      .container{max-width:1250px;margin:0 auto;padding:1%;background-color:#FFF;}
+      .clear{position:relative;display:block;clear:both;}
+
+      .frame-a {
+        border: 2px solid #673434;
+        border-bottom-right-radius: 10px;
+        border-bottom-left-radius: 10px;
+      }
+
+
+      /* Верхнее меню */
+
+      #top_menu_wide, #top_menu_narrow{width: 100%; position: relative; display:none;}
+
+      #top_menu_1, #top_menu_2, #top_menu_3, #top_menu_4 {position: absolute; bottom:5%; text-align: center; left:0; right:0; display:none;}
+      #top_menu_1 a, #top_menu_2 a, #top_menu_3 a, #top_menu_4 a {text-decoration:none;color: #FFF;}
+
+      .scope {width:100%; height:auto;}
+
+
+
+      @media screen and (min-width:640px){
+      #top_menu_wide {display:block;}
+      #top_menu_narrow {display: none;}
+      #top_menu_1 {display:block;font-size:16px; font-weight: bold;}
+      #top_menu_2 {display: none;}
+      #top_menu_3 {display: none;}
+      #top_menu_4 {display: none;}
+      }
+
+
+      @media screen and (min-width:535px) and (max-width:640px){
+      #top_menu_wide {display:block;}
+      #top_menu_narrow {display: none;}
+      #top_menu_1 {display: none;}
+      #top_menu_2 {display:block;font-size:14px; font-weight: normal;}
+      #top_menu_3 {display: none;}
+      #top_menu_4 {display: none;}
+      }
+
+
+
+      @media screen and (min-width:385px) and (max-width:535px){
+      #top_menu_wide {display:block;}
+      #top_menu_narrow {display: none;}
+      #top_menu_1 {display: none;}
+      #top_menu_2 {display: none;}
+      #top_menu_3 {display: block; font-size:14px; font-weight: normal;}
+      #top_menu_4 {display: none;}
+      }
+
+
+
+
+      @media screen and (min-width:280px) and (max-width:385px){
+      #top_menu_wide {display: none;}
+      #top_menu_narrow {display: block;}
+      #top_menu_1 {display: none;}
+      #top_menu_2 {display: none;}
+      #top_menu_3 {display: none;}
+      #top_menu_4 {display:block;font-size:14px; font-weight: normal;}
+      }
+
+      /* Конец - Верхнее меню */
+
+
+      /* Панель горизонтальная*/
+
+      .grid {
+          display: grid;
+          grid-template-columns: auto 1fr auto;
+      }
+
+
+      #menu-more {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .el-panel {
+        display: flex;
+          height: 40px;
+        align-items: center;
+          justify-content: center;
+        padding: 0 5px;
+          margin: 0 5px;
+          border: 2px solid #673434;
+          border-radius: 5px;
+          color: #673434;
+          font-weight: bold;
+      }
+
+      /* Панель горизонтальная Конец */
+
+
+      /* Левое меню */
+      .left-menu a {text-decoration: none;}
+
+
+      .toggleMenu {
+          display:  inline-block;
+          background: none;
+          padding: 0px;
+        color: #795548;
+          font-weight: bold;
+      }
+
+
+      .nav {
+          list-style: none;
+          background: #420615;
+          display: none;
+        width:300px;
+      }
+      .nav:before,
+      .nav:after {
+          content: " ";
+          display: table;
+      }
+      .nav:after {
+          clear: both;
+      }
+      .nav ul {
+          list-style: none;
+          display: block;
+          width: 100%;
+      }
+      .nav a {
+          padding: 10px 15px;
+          color:#fff;
+      }
+      .nav li {
+          position: relative;
+      }
+      .nav > li {
+          float: none;
+          border-top: 1px solid #f1d50a;
+      }
+      .nav > li > .parent {
+          background-image: url("/detal/downArrow.png");
+          background-repeat: no-repeat;
+          background-position: 95% 50%;
+      }
+      .nav > li > a {
+          display: block;
+      }
+      .nav li  ul {
+          position: absolute;
+          left: -9999px;
+      }
+      .nav > li.hover > ul {
+          left: 0;
+      }
+      .nav li li.hover ul {
+          left: 100%;
+          top: 0;
+      }
+      .nav li li a {
+          display: block;
+          background: #673434;
+          position: relative;
+          z-index:100;
+          border-top: 1px solid  #796b6b;
+        border-radius: 10px;
+        margin: 3px;
+      }
+      .nav li li li a {
+          background:#249578;
+          z-index:200;
+          border-top: 1px solid #1d7a62;
+      }
+      .nav li li .parent {
+          background-image: url("/detal/downArrow.png");
+          background-repeat: no-repeat;
+          background-position: 95% 50%;
+      }
+      .nav > li.hover > ul , .nav li li.hover ul {
+          position: static;
+      }
+
+      @media (max-width: 315px) {
+          .nav {
+          width:255px;
+          }
+      }
+
+
+      /* Левое меню конец */
+
+
+      /* Поиск */
+
+
+      .form-search {
+          background: none;
+          border-radius: 5px;
+          padding: 4px;
+      }
+
+      .form-search input {
+          width: 100px;
+        height: 40px;
+          font-size: 16px;
+          transition: all .2s ease-out;
+          padding: 0 40px 0 6px;
+          background-image: url("/my-design/search.png");
+          background-repeat: no-repeat;
+          background-position: 100% 50%, 100% 100%;
+          border-radius: 3px;
+          border: 2px solid #795548;
+          box-shadow: none;
+      }
+
+      .form-search input:focus {
+          width: 100%;
+          color: #000;
+          background-image: url("search.png");
+        border: 2px solid #ebd053;
+      }
+
+
+      .grid-form input {
+          display: block;
+          margin-left: auto;
+      }
+
+
+        ::-webkit-input-placeholder {
+          color: #795548;
+      }
+        ::-moz-placeholder { /* Firefox 19+ */
+          color: #795548;
+      }
+        :-ms-input-placeholder {
+          color: #795548;
+      }
+        :-moz-placeholder { /* Firefox 18- */
+          color: #795548;
+      }
+
+
+      @media (max-width: 640px) {
+          .form-search input {
+          height: 30px;
+          font-size: 14px;
+          }
+
+        .el-panel {
+            height: 30px;
+        }
+      }
+
+
+      @media (max-width: 485px) {
+          #el4-panel {
+          display:none;
+          }
+      }
+
+
+      @media (min-width: 375px) {
+          #el2-panel {
+          display:none;
+          }
+      }
+
+
+      @media (max-width: 300px) {
+          .form-search input {
+          width:80px;
+          }
+      }
+
+
+      .decor_a {
+        display:flex;
+      }
+
+      .decor_b {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+
+      .decor_left {
+        margin-left:10px;
+      }
+
+      #exit {
+        display:none;
+      }
+
+
+
+      .position {
+        position:absolute;
+        border-radius: 10px;
+        z-index: 5;
+      }
+
+
+
+      /* Конец Поиск */
+
+
+      /* Панель интересов */
+      .interest {
+        display: flex;
+          height: 40px;
+        align-items: center;
+          justify-content: center;
+        padding: 0 5px;
+          margin: 0 5px;
+          border: 2px solid #673434;
+          border-radius: 5px;
+          color: #673434;
+          font-weight: bold;
+      }
+
+      #interest {display: flex; align-items: center; justify-content: center; flex-wrap: wrap;}
+      #interest > div {text-align:center; margin:10px 0;}
+      #interest a {text-decoration: none;}
+
+
+      .interest-v {
+        display: flex;
+        position: relative;
+        height: 40px;
+        align-items: center;
+          justify-content: center;
+        padding: 5px;
+          margin: 5px;
+          border: 2px solid #673434;
+          border-radius: 5px;
+        width: 240px;
+      }
+
+      .interest-v a {text-decoration: none; color:#673434;}
+
+
+      details {
+      }
+      details div {
+          position: absolute;
+        margin-top: 15px;
+          z-index: 10;
+          background-color: white;
+          left: 1%;
+          width: 250px;
+      }
+
+
+      @media (max-width: 375px) {
+          #interest {
+        display:none;
+          }
+      }
+
+      </style>
+      <link href="commentsAndModal.css" rel="stylesheet" type="text/css">
   </head>
 
   <body id='body'>
@@ -413,7 +785,7 @@ foreach ($comments as $k => $v)
     <div id="page_wrapper">
     <div class="l-island-bg l-pv-30 lm-pv-15 lm-mt-20">
       <div class="comments comments--ready">
-      <div class="comments__body">
+      <div id='comments__body' class="comments__body">
         <div class="comments__title l-island-a l-pb-10 lm-pt-30 l-fs-18 l-fw-700 l-mb-15" data-count="5">
         <div class="comments-header__title comments__title"><span id="comment_count_all"><?php echo $count; ?></span>&nbsp;комментариев</div>
         </div>
@@ -712,7 +1084,7 @@ foreach ($comments as $k => $v)
 
           <div>
             <label  class="form-label">Территория проживания</label>
-            <div id='form__location--onload' ></div>
+            <div id='form__country--onload' ></div>
           </div>
 
           <div>

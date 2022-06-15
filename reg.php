@@ -129,22 +129,15 @@ else
    }    
 }   
 
-$location = isset($_POST['location']) ? filter_var(trim($_POST['location']), FILTER_SANITIZE_STRING) : null;
+$country = isset($_POST['country']) ? (int)$_POST['country'] : 0;
 
-if (empty($location))
+if (empty($country))
 {
   $error = true;  
     
-  $js .= 'form_register_location.classList.add("is-invalid");'; 
-  $js .= 'form_register_location_message.textContent = "Поле необходимо заполнить";';
+  $js .= 'form_register_country.classList.add("is-invalid");'; 
+  $js .= 'form_register_country_message.textContent = "Поле необходимо заполнить";';
 } 
-else if (!preg_match("~^[a-zа-яё\-\d\;\:\"\.\/\\\!\? ]+$~mui", $location)) 
-{   
-  $error = true;  
-    
-  $js .= 'form_register_location.classList.add("is-invalid");'; 
-  $js .= 'form_register_location_message.textContent = "Содержит недопустимые символы";';
-}
 
 $work = isset($_POST['work']) ? (int)$_POST['work'] : 0;
 
@@ -212,7 +205,7 @@ if (!$error)
   
   if ($res === true)
   {
-    mysqli_query($db, "INSERT INTO `users` (`name`, `surname`, `middlename`, `gender`, `email`, `password`, `location`, `work`, `post`, `company`, `about`) VALUES ('".$name."', '".$surname."', '".$middlename."', '".$gender."', '".$email."', '".$password_hash."', '".$location."', '".$work."', '".$post."', '".$company."', '".$about."')") or die('Ошибка добавления нового пользователя');
+    mysqli_query($db, "INSERT INTO `users` (`name`, `surname`, `middlename`, `gender`, `email`, `password`, `country`, `work`, `post`, `company`, `about`) VALUES ('".$name."', '".$surname."', '".$middlename."', '".$gender."', '".$email."', '".$password_hash."', '".$country."', '".$work."', '".$post."', '".$company."', '".$about."')") or die('Ошибка добавления нового пользователя');
     
   }
   else
