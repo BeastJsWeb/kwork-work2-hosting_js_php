@@ -165,42 +165,6 @@
 .comment--reply[data-level='5'] {
     padding-left: 56px;
 }
-.comment--reply[data-level='6'] {
-    padding-left: 70px;
-}
-.comment--reply[data-level='7'] {
-    padding-left: 84px;
-}
-.comment--reply[data-level='8'] {
-    padding-left: 98px;
-}
-.comment--reply[data-level='9'] {
-    padding-left: 112px;
-}
-.comment--reply[data-level='10'] {
-    padding-left: 126px;
-}
-.comment--reply[data-level='11'] {
-    padding-left: 140px;
-}
-.comment--reply[data-level='12'] {
-    padding-left: 154px;
-}
-.comment--reply[data-level='13'] {
-    padding-left: 168px;
-}
-.comment--reply[data-level='14'] {
-    padding-left: 182px;
-}
-.comment--reply[data-level='15'] {
-    padding-left: 196px;
-}
-.comment--reply[data-level='16'] {
-    padding-left: 210px;
-}
-.comment--reply[data-level='17'] {
-    padding-left: 224px;
-}
 
 .comment--reply .comment__branch::before {
     position: absolute;
@@ -370,6 +334,9 @@
     min-height: 80px;
     background: transparent;
 }
+/*#comment_input_message div {
+    height: 0;
+}*/
 .thesis--empty .thesis__placeholder {
     display: block;
     position: absolute;

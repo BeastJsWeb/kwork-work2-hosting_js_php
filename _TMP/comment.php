@@ -25,7 +25,7 @@ $up = isset($_POST['up']) ? (int)$_POST['up'] : 0;
 
 $message = isset($_POST['message']) ? trim($_POST['message']) : null;
 
-$message = preg_replace('#<(/?)(br)>#', '[$1$2]', $message);
+$message = preg_replace('#<(/?)(br)>#', '[$1$2]', $message);//не реагирует на 1й enter
 
 $message = filter_var($message, FILTER_SANITIZE_STRING);
 

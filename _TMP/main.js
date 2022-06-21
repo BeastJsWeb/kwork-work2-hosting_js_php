@@ -94,10 +94,7 @@ document.addEventListener('DOMContentLoaded', function () {
       
       comment_placeholder.textContent = "Редактировать комментарий...";
       comment_input_message.innerHTML = text; 
-
-      if (user_id !== 0) {
-        comment_input_message.focus();
-      }
+      comment_input_message.focus();
       comment_input_box.classList.remove('thesis--empty');        
       comment_send_button.classList.add('v-button--disabled');
       comment_send_button_text.textContent = "Редактировать";
@@ -156,63 +153,6 @@ document.addEventListener('DOMContentLoaded', function () {
       () => body.className = '');  
     });
   }
-
-  function ePrevDef (form) {
-
-    document.getElementById(form)
-    .addEventListener('submit', e => e.preventDefault());
-  }
-
-  /*function loginAttempt () {
-
-    const formLogin = document.getElementById('form_login');
-    const formLogPass = document.getElementById('form_login_password');
-    let submit = 0;
-
-    formLogin.addEventListener('submit', e => {
-
-      e.preventDefault();
-    });
-
-    formLogin.addEventListener('change', () => {
-
-      const storageGet = localStorage.getItem('pass');
-      const btnLogin = document.getElementById('form_login--submit');
-      //const formLogError = document.getElementById('form_login_name_message');
-
-      if (formLogPass.classList.contains('passAttempt')) {
-
-        setTimeout(() => {
-
-          console.log(submit++);
-          formLogPass.classList.remove('passAttempt');
-        }, 2000);
-      }
-    
-      if (submit >= 3 && storageGet === null || submit == 0 && storageGet !== null) {
-
-        btnLogin.disabled = true;
-        formLogPass.setAttribute('readonly', '');
-        formLogPass.classList.add('is-invalid');
-        localStorage.setItem('pass', 'blocked');
-        //formLogError.innerHTML = 
-        //'<div>Число попыток ввода пароля превышено, доступ ограничен на 10 мин</div>';
-      }
-
-      if (localStorage.getItem('pass') !== null) {
-
-        setTimeout(() => {
-          formLogPass.removeAttribute('readonly');
-          localStorage.removeItem('pass');
-          formLogPass.classList.remove('is-invalid');
-          //formLogError.innerHTML = '';
-          submit = 0;
-          formLogPass.classList.remove('passAttempt');
-          btnLogin.disabled = false;
-        }, 10000); // 10 min 
-      }
-    });
-  }*/
   
   openModal('.comment__icon', 'modal-openComp');// modal__complaint--open
   closeModal('.btn-close');
@@ -244,10 +184,51 @@ document.addEventListener('DOMContentLoaded', function () {
 
   if (user_id == 0) { //IF USER NOT LOGGED
 
-    //loginAttempt();
-    ePrevDef ('form_login');
-    ePrevDef ('form_register');
-    ePrevDef ('form_restore');
+    const formLogin = document.getElementById('form_login');
+    const formLogPass = document.getElementById('form_login_password');
+    let passEnter = 0;
+
+    formLogin.addEventListener('submit', e => e.preventDefault());
+
+    formLogin.addEventListener('change', () => {
+
+      const storageGet = localStorage.getItem('pass');
+      const btnLogin = document.getElementById('form_login--submit');
+      const formLogError = document.getElementById('form_login_name_message');
+    
+      if (passEnter >= 3 && storageGet === null || passEnter == 0 && storageGet !== null) {
+
+        btnLogin.disabled = true;
+        formLogPass.setAttribute('readonly', '');
+        formLogPass.classList.add('is-invalid');
+        localStorage.setItem('pass', 'blocked');
+        formLogError.innerHTML = 
+        '<div>Число попыток ввода пароля превышено, доступ ограничен на 10 мин</div>';
+      }
+
+      if (localStorage.getItem('pass') !== null) {
+
+        setTimeout(() => {
+          formLogPass.removeAttribute('readonly');
+          localStorage.removeItem('pass');
+          formLogPass.classList.remove('is-invalid');
+          formLogError.innerHTML = '';
+          passEnter = 0;
+          btnLogin.disabled = false;
+        }, 60000 * 10); // 10 min 
+      }
+    });
+
+    formLogPass.addEventListener('change', () => { // pass blocked
+
+      if (passEnter <= 3 && localStorage.getItem('pass') === null) {
+        
+        passEnter++;
+      }
+    });
+
+    document.getElementById('form_register')
+    .addEventListener('submit', e => e.preventDefault());
 
     document.querySelectorAll('.btns_reg') // modal__registration--open
     .forEach(btn => {
@@ -282,6 +263,9 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     });
 
+    document.getElementById('form_restore')
+    .addEventListener('submit', e => e.preventDefault());
+
     openModal('.btns_login', 'modal-open'); // modal__login--open
     openModal('.vote__button', 'modal-open');// modal__login--open
     openModal('.comments_form', 'modal-open');// modal__login--open
@@ -307,7 +291,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
   } else { //IF USER LOGGED
 
-    ePrevDef ('form_complaint');
+    document.getElementById('form_complaint')
+    .addEventListener('submit', e => e.preventDefault());
+
     closeModal('.btn-primary');
 
     body.addEventListener('click', () => { // close dropdown menu
@@ -321,6 +307,23 @@ document.addEventListener('DOMContentLoaded', function () {
         }
       });
     });
+
+    /*document.querySelectorAll('.content_editable')// comment--create new row
+    .forEach(btn => {
+      btn.addEventListener('keyup', e => {
+
+        if (e.keyCode == 13 && !e.shiftKey) {   
+          
+          btn.innerHTML += '<br>';
+          const range = document.createRange();
+          range.selectNodeContents(btn);
+          range.collapse(false);
+          const sel = window.getSelection();
+          sel.removeAllRanges();
+          sel.addRange(range);
+        }
+      });
+    });*/
   }
 });
    
@@ -356,8 +359,7 @@ document.addEventListener('DOMContentLoaded', function () {
        comment_pseudo_form.after(comment_form); 
        comment_placeholder.textContent = "Написать комментарий...";
        comment_input_message.innerHTML = ""; 
-
-       if (focus && user_id !== 0) { comment_input_message.focus(); }
+       if (focus) { comment_input_message.focus(); }
        comment_input_box.classList.add('thesis--empty');
        comment_cancel.innerHTML = "";
        comment_send_button.classList.add('v-button--disabled');
@@ -375,8 +377,7 @@ document.addEventListener('DOMContentLoaded', function () {
        comment_pseudo_form_up.after(comment_form); 
        comment_placeholder.textContent = "Написать комментарий...";
        comment_input_message.innerHTML = ""; 
-       
-       if (focus && user_id !==0) { comment_input_message.focus(); }
+       if (focus) { comment_input_message.focus(); }
        comment_input_box.classList.add('thesis--empty');
        comment_cancel.innerHTML = "";
        comment_send_button.classList.add('v-button--disabled');

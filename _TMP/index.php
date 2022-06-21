@@ -690,7 +690,7 @@ foreach ($comments as $k => $v)
 
                       <!-- Вход, Регистрация и Выход -->
       <div class="decor_b">
-      <div class="el-panel btns_login" >Вход</div>  <!-- Вход -->
+      <div class="el-panel btns_login">Вход</div>  <!-- Вход -->
           <div class="el-panel btns_reg" id="el4-panel">Регистрация</div>  <!-- Регистрация -->
           <div class="el-panel" id="exit">Выход</div>  <!-- Выход -->
     </div>
@@ -975,12 +975,7 @@ foreach ($comments as $k => $v)
               <div class="thesis__content">
               <div class="thesis__block thesis__block--text">
                 <div class="herzen">
-                  <p 
-                    id="comment_input_message" 
-                    class="content_editable" 
-                    contenteditable="true"
-                    style="display:inline-block; width: 100%;"
-                  ></p>
+                  <p id="comment_input_message" class="content_editable" contenteditable="true"></p>
                   <div class="herzen__command_list"></div>
                 </div>
               </div>

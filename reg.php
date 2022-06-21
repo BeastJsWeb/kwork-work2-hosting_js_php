@@ -207,6 +207,7 @@ if (!$error)
   {
     mysqli_query($db, "INSERT INTO `users` (`name`, `surname`, `middlename`, `gender`, `email`, `password`, `country`, `work`, `post`, `company`, `about`) VALUES ('".$name."', '".$surname."', '".$middlename."', '".$gender."', '".$email."', '".$password_hash."', '".$country."', '".$work."', '".$post."', '".$company."', '".$about."')") or die('Ошибка добавления нового пользователя');
     
+    $js .= 'location.href = "/";';
   }
   else
   {

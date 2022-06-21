@@ -3,7 +3,10 @@ include 'init.php';
 
 if (isset($_SESSION['USER_ID'])) { exit('1'); }
 
-$js = ''; $error = false;
+
+if (!isset($_SESSION["pass_attempt"])) { $_SESSION["pass_attempt"] = 0; }
+
+$js = ''; $error = false;   
 
 $recaptcha = isset($_POST['g-recaptcha-response']) ? filter_var(trim($_POST['g-recaptcha-response']), FILTER_SANITIZE_STRING) : null;
 
@@ -71,7 +74,26 @@ if (empty($password))
     
   $js .= 'form_register_password.classList.add("is-invalid");'; 
   $js .= 'form_register_password_message.textContent = "Поле необходимо заполнить";';
+
 } 
+
+if ($_SESSION["pass_attempt"] == 3) { // pass --block / unblock
+
+  if (time() - $_SESSION["pass_attempt_time"] < 600) {
+
+    $error = true; 
+
+    $js .= 'form_login_password.classList.add("is-invalid");';
+    $js .= 'form_login_name_message.textContent = "Число попыток входа превышено, доступ ограничен на 10 мин";';
+
+  } else {
+
+    $_SESSION["pass_attempt"] = 0;
+
+    $js .= 'form_login_password.classList.remove("is-invalid");';
+    $js .= 'form_login_name_message.textContent = "";';
+  }
+}
 
 if (!$error)
 {
@@ -95,7 +117,13 @@ if (!$error)
     $html = addslashes($html);    
   
     $js .= 'login_form_message.classList.remove("d-none");'; 
-    $js .= 'login_form_message.innerHTML = "'.$html.'";';       
+    $js .= 'login_form_message.innerHTML = "'.$html.'";'; 
+
+    if ($_POST['password'] != md5($password) && isset($_SESSION["pass_attempt"]) && $_SESSION["pass_attempt"] < 3) {
+
+      $_SESSION["pass_attempt"] ++;
+      $_SESSION["pass_attempt_time"] = time();
+    }
   }      
 } 
 
