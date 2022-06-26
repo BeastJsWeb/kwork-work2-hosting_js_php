@@ -77,7 +77,7 @@ if (empty($password))
 
 } 
 
-if ($_SESSION["pass_attempt"] == 3) { // pass --block / unblock
+if ($_SESSION["pass_attempt"] == 3) { // password --block / unblock
 
   if (time() - $_SESSION["pass_attempt_time"] < 600) {
 

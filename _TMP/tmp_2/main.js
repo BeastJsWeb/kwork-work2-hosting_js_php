@@ -427,30 +427,7 @@ document.addEventListener('DOMContentLoaded', function () {
        { 
          try 
          { 
-           // Prepare new data
-           let replyId = url.split("?")[1]?.split("=")[1];
-           const path = url.split("?")[0];
-           switch(path) {
-            // Comment added
-            case "comment.php":
-              replyId = post?.get("reply_id");
-              document.getElementById(`comment_id_${replyId}`)?.querySelector(".ddMenu")?.classList.add('hidden');
-            break;
-
-            // Comment deleted
-            case "delete.php":
-              if(!replyId) {
-                replyId = post?.get("id");
-              }
-              const parentId = document.getElementById(`comment_id_${replyId}`)?.getAttribute("data-parent");
-              const childs = document.querySelectorAll(`[data-parent="${parentId}"]`);
-              if(childs.length === 1) {
-                document.getElementById(`comment_id_${parentId}`)?.querySelector(".ddMenu")?.classList.remove('hidden');
-              }
-            break;
-           }
-
-           window.eval(result?.data);         
+           window.eval(result?.data);             
          } 
          catch (err) 
          { 

@@ -856,19 +856,7 @@ foreach ($comments as $k => $v)
               }
 
               ?>
-              <div 
-                id="comment_id_<?php echo $row['id']; ?>" 
-                class="
-                  comment 
-                  <?php echo $level_up > 1 ? 'comment--reply' : ''; ?>
-                "
-                data-next="<?php echo $arr_next; ?>" 
-                data-image="<?php echo !empty($row['image']) ? $row['image'] : ''; ?>" 
-                data-id="<?php echo $row['id']; ?>" 
-                data-level="<?php echo $level + 1; ?>" 
-                style="--level: <?php echo $level + 1; ?>;"
-                data-parent="<?php echo $row['parent_id']; ?>"
-              >
+              <div id="comment_id_<?php echo $row['id']; ?>" class="comment <?php echo $level_up > 1 ? 'comment--reply' : ''; ?>" data-next="<?php echo $arr_next; ?>" data-image="<?php echo !empty($row['image']) ? $row['image'] : ''; ?>" data-id="<?php echo $row['id']; ?>" data-level="<?php echo $level + 1; ?>" style="--level: <?php echo $level + 1; ?>;">
                 <div class="comment__branches">
                 <?php
                 echo $branch;
@@ -909,23 +897,12 @@ foreach ($comments as $k => $v)
 
                 <div class="comment__action">Ответить</div>
                 <?php
-                if (@$row['user_id'] == @$_SESSION['USER_ID']) {
+                if (isset($_SESSION['USER_ID']))
+                {
+                  if ($row['user_id'] == $_SESSION['USER_ID'] && time() - strtotime($row['time_add']) < 300 /*&& !end($row['childs'])*/)
+                  {
                     ?>
-                    <details 
-                      id="dropdownMenuButton1" 
-                      class="
-                        ddMenu
-                        <?php 
-                          if (
-                            end($row['childs'])
-                            || time() - strtotime($row['time_add']) > 300
-                          ) { 
-                        ?>
-                        hidden
-                        <?php } ?>
-                      " 
-                      data-bs-toggle="dropdown"
-                    >
+                    <details id="dropdownMenuButton1" class="ddMenu" data-bs-toggle="dropdown" >
                       <summary><svg class="icon icon--v_etc" width="16" height="16" xmlns="http://www.w3.org/2000/svg"><use xlink:href="#v_etc"></use></svg></summary>
                       <ul class="dropdown-menu">
                         <li><button class="dropdown-item comment-edit" ><svg height="20" width="20" class="icon icon--v_pen"><use xlink:href="#v_pen"></use></svg> Редактировать</button></li>
@@ -933,6 +910,7 @@ foreach ($comments as $k => $v)
                       </ul>
                     </details>
                     <?php
+                  }
                 }
 
                 $vote = $row['plus'] - $row['minus'];

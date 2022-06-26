@@ -63,7 +63,7 @@ mysqli_query($db, "INSERT INTO `comment` (`theme_id`, `parent_id`, `user_id`, `m
 
 $id = mysqli_insert_id($db);
 
-$html .= '<div id="comment_id_'.$id.'" class="comment '.($level_up > 1 ? 'comment--reply' : '').'" data-image="'.(!empty($image) ? $image : '').'" data-id="'.$id.'" data-level="'.($level+1).'" style="--level: '.($level+1).';" data-parent="'.$reply_id.'">';
+$html .= '<div id="comment_id_'.$id.'" class="comment '.($level_up > 1 ? 'comment--reply' : '').'" data-image="'.(!empty($image) ? $image : '').'" data-id="'.$id.'" data-level="'.($level+1).'" style="--level: '.($level+1).';">';
 $html .= '<div class="comment__branches">';
 
 $arr_next = isset($_POST['next']) ? $_POST['next'] : '';
