@@ -89,11 +89,11 @@
 }
 .vote--sum-positive .vote__value {
     background-color: #eefbf3;
-    --color-text: #2ea83a;
+    color: #2ea83a;
 }
 .vote--sum-negative .vote__value {
     background-color: #fff1f1;
-    --color-text: #e52e3a;
+    color: #e52e3a;
 }
 .vote .vote__button--minus:hover {
     cursor: pointer;
@@ -134,9 +134,6 @@
 .comment__branch--no-border {
     border-color: transparent;
     height: 0;
-}
-.comment.--hide .ddMenu {
-    visibility: hidden;
 }
 .comment__detail {
     grid-area: 2 / 2 / 3 / 4;
@@ -357,6 +354,10 @@
 /*modal*/
 .btns_login, .btns_reg {
     cursor: pointer;
+}
+#exit.show {
+    cursor: pointer;
+    display: flex;
 }
 .modal-dialog a {
     text-decoration: none;

@@ -135,36 +135,84 @@ document.addEventListener('DOMContentLoaded', function () {
   //MODAL
   const body = document.getElementById('body');
 
-  function openModal(button, addClass) { //modal--open
+  function openModalLogin(button, addClass) { //modal__login--open
 
     document.querySelectorAll(button)
     .forEach(btn => {
       btn.addEventListener('click',() => {
 
+        const recapLogin = document.getElementById('login_form_recaptcha');
+
+        if (typeof window.recapLoaded == 'undefined') { //if url__recaptcha--none
+
+          recapLoading();
+
+        } else {
+
+          if (!recapLogin.hasChildNodes()) {
+
+            recaptcha_log = grecaptcha.ready(function() {
+              grecaptcha.render( recapLogin, { 'sitekey' : '6LcoBQQfAAAAAKnRfhH1orNPy1UVWUNTyWF7wa5j'});
+            });
+          }
+        }
+        
+        document.getElementById('recapLoaded') // url__recaptcha--loaded
+        .addEventListener('load',() => {
+
+          body.className = '';
+          body.classList.add(addClass);
+
+          if (body.classList.contains('modal-open') && !recapLogin.hasChildNodes()) {
+
+            recaptcha_log = grecaptcha.ready(function() {
+              grecaptcha.render( recapLogin, { 'sitekey' : '6LcoBQQfAAAAAKnRfhH1orNPy1UVWUNTyWF7wa5j'});
+            });
+          }
+        });
+
         body.className = '';
         body.classList.add(addClass);
+        
+        return false;
       });
     });
   }
- 
-  function closeModal(button) { //modal--close
 
-    document.querySelectorAll(button)
-    .forEach(btn => {
-      btn.addEventListener('click',
+  function recapLoading() {
 
-      () => body.className = '');  
-    });
+    const script = document.createElement('script');
+    script.setAttribute('id', 'recapLoaded');
+    script.src  = "https://www.google.com/recaptcha/api.js";
+    body.appendChild(script);
+    var recapLoaded = true;
   }
 
-  function ePrevDef (form) {
+  function ajaxOnSubmitForm (form, url) {
 
     document.getElementById(form)
-    .addEventListener('submit', e => e.preventDefault());
+    .addEventListener('submit', e => {
+      
+      e.preventDefault();
+      ajax(url, `#` + `${form}`);
+    });
   }
   
-  openModal('.comment__icon', 'modal-openComp');// modal__complaint--open
-  closeModal('.btn-close');
+  document.querySelectorAll('.comment__icon') // modal__complaint--open
+  .forEach(btn => {
+    btn.addEventListener('click',() => {
+
+      body.className = '';
+      body.classList.add('modal-openComp');
+    });
+  });
+  
+  document.querySelectorAll('.btn-close') //modal--close
+  .forEach(btn => {
+    btn.addEventListener('click',
+
+    () => body.className = '');  
+  });
 
   document.querySelectorAll('.comments_pseudo_form') // form__pseudo --show/hide
   .forEach(btn => {
@@ -193,12 +241,43 @@ document.addEventListener('DOMContentLoaded', function () {
 
   if (user_id == 0) { //IF USER NOT LOGGED
 
-    ['form_login', 'form_register', 'form_restore']
-    .forEach(form => ePrevDef(form));
+    ajaxOnSubmitForm('form_login', 'log.php');
+    ajaxOnSubmitForm('form_register', 'reg.php');
+    ajaxOnSubmitForm('form_restore', 'restore.php');
 
     document.querySelectorAll('.btns_reg') // modal__registration--open
     .forEach(btn => {
       btn.addEventListener('click',() => {
+
+        const recapReg = document.getElementById('register_form_recaptcha');
+        
+        if (typeof window.recapLoaded == 'undefined') { //if url__recaptcha--none
+
+          recapLoading();
+          
+        } else {
+
+          if (!recapReg.hasChildNodes()) {
+            
+            recaptcha_reg = grecaptcha.ready(function() {
+              grecaptcha.render( recapReg, { 'sitekey' : '6LcoBQQfAAAAAKnRfhH1orNPy1UVWUNTyWF7wa5j'});
+            });
+          }
+        }
+
+        document.getElementById('recapLoaded') // url__recaptcha--loaded
+        .addEventListener('load',() => {
+          
+          body.className = '';
+          body.classList.add('modal-openReg');
+
+          if (!recapReg.hasChildNodes()) {
+            
+            recaptcha_reg = grecaptcha.ready(function() {
+              grecaptcha.render( recapReg, { 'sitekey' : '6LcoBQQfAAAAAKnRfhH1orNPy1UVWUNTyWF7wa5j'});
+            });
+          }
+        });
 
         body.className = '';
         body.classList.add('modal-openReg');
@@ -229,15 +308,22 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     });
 
-    openModal('.btns_login', 'modal-open'); // modal__login--open
-    openModal('.vote__button', 'modal-open');// modal__login--open
-    openModal('.comments_form', 'modal-open');// modal__login--open
+    openModalLogin('.btns_login', 'modal-open'); // modal__login--open
+    openModalLogin('.vote__button', 'modal-open');// modal__login--open
+    openModalLogin('.comments_form', 'modal-open');// modal__login--open
 
     document.getElementById('btn_rest')// modal__restore--open
     .addEventListener('click',() => {
 
       body.className = '';
       body.classList.add('modal-openRest');
+      const recapRes = document.getElementById('restore_form_recaptcha');
+
+      if (body.classList.contains('modal-openRest') && !recapRes.hasChildNodes())
+
+      recaptcha_res = grecaptcha.ready(function() {
+        grecaptcha.render( recapRes, { 'sitekey' : '6LcoBQQfAAAAAKnRfhH1orNPy1UVWUNTyWF7wa5j'});
+      });
     });
     
     document.querySelectorAll('.btn-primary')// modal__complaint--close/open login
@@ -254,18 +340,29 @@ document.addEventListener('DOMContentLoaded', function () {
 
   } else { //IF USER LOGGED
 
-    ePrevDef ('form_complaint');
-    closeModal('.btn-primary');
+    document.getElementById('btn__login').classList.add('hidden'); // btn__log--hide
+    document.getElementById('el4-panel').classList.add('hidden'); // btn__reg--hide
+    document.getElementById('exit').classList.add('show');  // btn__exit--show
 
-    body.addEventListener('click', () => { // close dropdown menu
+    document.getElementById('exit')  // user -- log out
+    .addEventListener('click', () => {
 
-      document.querySelectorAll('.ddMenu')
-      .forEach(btn => {
+      document.cookie = 'PHPSESSID' + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=[/];";
+      window.location.href ='/';
+    });
+
+    document.getElementById('form_complaint')
+    .addEventListener('submit', e => e.preventDefault());
+
+    body.addEventListener('click', () => {
+
+      document.querySelectorAll('.ddMenu') // close dropdown menu
+      .forEach(menu => {
         
-        if (btn.hasAttribute('open')) {
+        if (menu.hasAttribute('open')) 
 
-          btn.removeAttribute('open');
-        }
+        menu.removeAttribute('open');
+        return false;
       });
     });
   }

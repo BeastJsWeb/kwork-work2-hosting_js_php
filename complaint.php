@@ -25,4 +25,6 @@ if (mysqli_num_rows($query))
   sendMail(EMAIL, $title, $text);
 }
 
+$js .= 'document.getElementById("body").className ="";';
+
 exit(json_encode(['data' => $js], JSON_UNESCAPED_UNICODE));

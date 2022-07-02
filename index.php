@@ -690,7 +690,7 @@ foreach ($comments as $k => $v)
 
                       <!-- Вход, Регистрация и Выход -->
       <div class="decor_b">
-      <div class="el-panel btns_login" >Вход</div>  <!-- Вход -->
+      <div class="el-panel btns_login" id='btn__login' >Вход</div>  <!-- Вход -->
           <div class="el-panel btns_reg" id="el4-panel">Регистрация</div>  <!-- Регистрация -->
           <div class="el-panel" id="exit">Выход</div>  <!-- Выход -->
     </div>
@@ -1150,7 +1150,7 @@ foreach ($comments as $k => $v)
         <hr>
         <div class="d-flex align-items-center justify-content-between">
           <div>Есть аккаунт? <a href="#" class="link-info btns_login">Войти</a></div>
-          <button class="btn btn-primary" onclick="ajax('reg.php', '#form_register');">Зарегистрироваться</button>
+          <button class="btn btn-primary" >Зарегистрироваться</button>
         </div>
         </form>
       </div>
@@ -1186,7 +1186,7 @@ foreach ($comments as $k => $v)
             <a href="#" class="btns_reg link-info" >Регистрация</a>
             <a href="#" id='btn_rest' class="link-info">Забыли пароль</a>
           </div>
-          <button id='form_login--submit' class="btn btn-primary" onclick="ajax('log.php', '#form_login');">Войти</button>
+          <button id='form_login--submit' class="btn btn-primary" >Войти</button>
         </div>
         </form>
       </div>
@@ -1197,23 +1197,23 @@ foreach ($comments as $k => $v)
     <div class="modal fade" id="modal_restore" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
       <div class="modal-content">
-      <div class="modal-header"><h5 class="modal-title">Вход в аккаунт</h5><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
+      <div class="modal-header"><h5 class="modal-title">Создание нового пароля</h5><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
       <div class="modal-body">
         <form id="form_restore" novalidate="" autocomplent="off">
         <div class="row g-3">
           <div class="col-12">
             <label class="form-label">Email <span class="text-danger">*</span></label>
-            <input type="email" class="form-control form-control-sm form-validate" maxlength="100" name="email">
-            <div class="invalid-feedback"></div>
+            <input type="email" class="form-control form-control-sm form-validate" id="form_restore_email" maxlength="100" name="email">
+            <div id="form_restore_email_message" class="invalid-feedback"></div>
           </div>
           <div class="d-flex justify-content-center"><div id="restore_form_recaptcha"></div></div>
-          <div class="d-none"></div>
+          <div id="restore_form_message" class="d-none"></div>
         </div>
         <hr>
         <div class="d-flex align-items-center justify-content-between">
           <div>
           </div>
-          <button class="btn btn-primary" onclick="ajax('log.php', '#form_restore');">Отправить письмо с паролем</button>
+          <button class="btn btn-primary" >Отправить письмо с паролем</button>
         </div>
         </form>
       </div>
@@ -1257,25 +1257,7 @@ foreach ($comments as $k => $v)
   </div>
   <div id="ajax_loading" class="position-fixed h-100 w-100 opacity-50"><div class="d-flex justify-content-center align-items-center w-100 h-100"><div class="spinner-border text-secondary" role="status"></div></div></div>
     
-  <script>var user_id = <?php echo isset($_SESSION['USER_ID']) ? $_SESSION['USER_ID'] : 0; ?>;</script>
-    <?php
-    if (!isset($_SESSION['USER_ID']))
-    {
-      ?>
-      <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
-      <script type="text/javascript">
-
-        var onloadCallback = function()
-        {
-          recaptcha_log = grecaptcha.render(document.getElementById('login_form_recaptcha'), { 'sitekey' : '<?php echo RECHACHA_PUBLIC_KEY; ?>'});
-          recaptcha_reg = grecaptcha.render(document.getElementById('register_form_recaptcha'), { 'sitekey' : '<?php echo RECHACHA_PUBLIC_KEY; ?>'});
-          recaptcha_res = grecaptcha.render(document.getElementById('restore_form_recaptcha'), { 'sitekey' : '<?php echo RECHACHA_PUBLIC_KEY; ?>'});
-
-        };
-      </script>
-      <?php
-    }
-    ?>
+    <script>var user_id = <?php echo isset($_SESSION['USER_ID']) ? $_SESSION['USER_ID'] : 0; ?>;</script>
     <script src="main.js"></script>
   </body>
 </html>
