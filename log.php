@@ -136,4 +136,6 @@ else
   $js .= 'location.href = "/";';
 }    
 
-exit(json_encode(['data' => $js], JSON_UNESCAPED_UNICODE));
+exit($result = json_encode(['data' => $js], JSON_UNESCAPED_UNICODE));
+var_dump($result);
+echo $result;

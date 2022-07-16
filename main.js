@@ -188,6 +188,27 @@ document.addEventListener('DOMContentLoaded', function () {
     var recapLoaded = true;
   }
 
+  function timerRestore() {
+
+    const countDownDate = new Date().getTime() + 10*60000;
+        
+    const timer = setInterval(() => {
+      
+      const now = new Date().getTime();
+      const distance = countDownDate - now;
+      const min = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const sec = Math.floor((distance % (1000 * 60)) / 1000);
+      document.getElementById("restore_form_message").innerHTML =
+        `<div class="alert">Повторный запрос пароля возможен через ${min} минут ${sec} секунд</div>`;  
+
+      if (distance < 0) {
+        
+        clearInterval(timer);
+        document.getElementById("restore_form_message").innerHTML = "";
+      }
+    }, 1000);
+  }
+
   function ajaxOnSubmitForm (form, url) {
 
     document.getElementById(form)
@@ -195,6 +216,16 @@ document.addEventListener('DOMContentLoaded', function () {
       
       e.preventDefault();
       ajax(url, `#` + `${form}`);
+
+      if (form === 'form_restore') {
+
+        setTimeout(() => {
+
+          if (document.getElementById('userNotFound'))
+
+          timerRestore();
+        }, 2000);
+      }
     });
   }
   
@@ -546,7 +577,6 @@ document.addEventListener('DOMContentLoaded', function () {
               }
             break;
            }
-
            window.eval(result?.data);         
          } 
          catch (err) 
