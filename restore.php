@@ -50,6 +50,7 @@ if ($_SESSION["email_attempt"] == 1) { // email--restore  block/unblock 10 min
     //$time_left = (int) -$time_left;
 
     //$html = '<div class="alert alert-danger text-center" role="alert">Повторный запрос пароля возможен через '.$time_left.' мин</div>';  
+    //$html = '<div id="emailNotFound" class="alert alert-danger text-center" role="alert"></div>';  
 
     //$html = str_replace(array("\r", "\n"), " ", $html);    
     //$html = addslashes($html);    

@@ -5,7 +5,7 @@
 define('SITE_NAME', 's5s.ru');   //название сайта в письме
 define('FROM_NAME', 'notification@s5s.ru');   //от кого в письме
 
-define('EMAIL', 'notification@s5s.ru'); //мыло на которое приходят опповещения о жалобах
+define('EMAIL', 'discontent@12347.ru'); //мыло на которое приходят опповещения о жалобах
 define('SMTP_USERNAME', 'notification@s5s.ru'); //логин почты
 define('SMTP_PASSWORD', 'j4%1Ks8z');     //пароль почты
 define('SMTP_HOST', 'smtp.beget.ru');     //хост почты
@@ -13,9 +13,9 @@ define('SMTP_CHARSET', 'utf-8');               //кодировка сайта �
 define('SMTP_PORT', '2525');                    // порт почты
 
 define('BD_HOST', 'localhost');                   // хост базы данных
-define('BD_LOG', 'bkru42_comment_2');                   // логин базы данных
-define('BD_PASS', 'xZCcar5%');           // пароль базы данных
-define('BD_NAME', 'bkru42_comment_2');                  // название базы данных
+define('BD_LOG', 'bkru42_comment_3');                   // логин базы данных
+define('BD_PASS', 'jGeDfe5&');           // пароль базы данных
+define('BD_NAME', 'bkru42_comment_3');                  // название базы данных
 
 define('RECHACHA_PUBLIC_KEY', '6LcoBQQfAAAAAKnRfhH1orNPy1UVWUNTyWF7wa5j'); //рекаптча гугла публичный ключ
 define('RECHACHA_SECRET_KEY', '6LcoBQQfAAAAAEMtau6XipBCBP-h_56t-1aruF_I'); //рекаптча гугла секретны ключ

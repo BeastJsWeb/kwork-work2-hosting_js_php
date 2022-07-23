@@ -57,11 +57,9 @@ $new_image = $upload_dir.$file_name;
     
 if (move_uploaded_file($_FILES["loadfile"]["tmp_name"], $new_image))
 {
-  $html .= '<div class="andropov_uploader__preview_item">';
   $html .= '<div class="andropov_uploader__preview_item__inner">';
-  $html .= '<div class="andropov_preview andropov_preview--image" style="min-height: 80px; min-width: 80px"><img class="andropov_preview__image" style="max-width: 80px; max-height: 80px;" src="/upload/'.$file_name.'"></div>';
+  $html .= '<div class="andropov_preview--image" style="min-height: 80px; min-width: 80px"><img style="max-width: 80px; max-height: 80px;" src="/upload/'.$file_name.'"></div>';
   $html .= '<div class="andropov_uploader__preview_item__remove" onclick="f();"></div>';
-  $html .= '</div>';
   $html .= '</div>';
 
   $html = str_replace(["\r","\n"]," ",$html);    

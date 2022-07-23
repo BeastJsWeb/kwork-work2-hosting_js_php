@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function () {
       comment_send_button_text.textContent = "Отправить"; 
       comment_send_button.setAttribute("onclick", "b();");
           
-      comment_cancel.innerHTML = "<div class=\"thesis__custom_button\" onclick=\"q("+parent_id+");\">Цитировать</div><div class=\"thesis__custom_button\" data-name=\"cancel\" onclick=\"a(true, false);\">Отмена</div>";             
+      comment_cancel.innerHTML = "<div onclick=\"q("+parent_id+");\">Цитировать</div><div data-name=\"cancel\" onclick=\"a(true, false);\">Отмена</div>";             
       
       e.stopPropagation(); e.preventDefault();        
       return false; 
@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', function () {
       
       if (image)
       {
-        var html = '<div class="andropov_uploader__preview_item"><div class="andropov_uploader__preview_item__inner"><div class="andropov_preview andropov_preview--image" style="min-height: 80px; min-width: 80px"><img class="andropov_preview__image" style="max-width: 80px; max-height: 80px;" src="/upload/'+image+'"></div><div class="andropov_uploader__preview_item__remove" onclick="f();"></div></div></div>';
+        var html = '<div class="andropov_uploader__preview_item__inner"><div class="andropov_preview--image" style="min-height: 80px; min-width: 80px"><img style="max-width: 80px; max-height: 80px;" src="/upload/'+image+'"></div><div class="andropov_uploader__preview_item__remove" onclick="f();"></div></div>';
       
         comment_uploader.innerHTML = html;          
       } 
@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', function () {
       comment_send_button_text.textContent = "Редактировать";
       comment_send_button.setAttribute("onclick", "e();");
             
-      comment_cancel.innerHTML = "<div class=\"thesis__custom_button\" onclick=\"a(true, false);\">Отмена</div>";             
+      comment_cancel.innerHTML = "<div onclick=\"a(true, false);\">Отмена</div>";             
       
       e.stopPropagation(); e.preventDefault();        
       return false; 
@@ -134,14 +134,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
   //MODAL
   const body = document.getElementById('body');
+  const recapLogin = document.getElementById('login_form_recaptcha');
 
   function openModalLogin(button, addClass) { //modal__login--open
 
     document.querySelectorAll(button)
     .forEach(btn => {
       btn.addEventListener('click',() => {
-
-        const recapLogin = document.getElementById('login_form_recaptcha');
 
         if (typeof window.recapLoaded == 'undefined') { //if url__recaptcha--none
 
@@ -365,6 +364,31 @@ document.addEventListener('DOMContentLoaded', function () {
 
           body.className = '';
           body.classList.add('modal-open');
+
+          if (typeof window.recapLoaded == 'undefined') { //if url__recaptcha--none
+
+            recapLoading();
+  
+          } else {
+  
+            if (!recapLogin.hasChildNodes()) {
+  
+              recaptcha_log = grecaptcha.ready(function() {
+                grecaptcha.render( recapLogin, { 'sitekey' : '6LcoBQQfAAAAAKnRfhH1orNPy1UVWUNTyWF7wa5j'});
+              });
+            }
+          }
+
+          document.getElementById('recapLoaded') // url__recaptcha--loaded
+          .addEventListener('load',() => {
+
+            if (body.classList.contains('modal-open') && !recapLogin.hasChildNodes()) {
+
+              recaptcha_log = grecaptcha.ready(function() {
+                grecaptcha.render( recapLogin, { 'sitekey' : '6LcoBQQfAAAAAKnRfhH1orNPy1UVWUNTyWF7wa5j'});
+              });
+            }
+          });
         } 
       });
     });
@@ -394,6 +418,25 @@ document.addEventListener('DOMContentLoaded', function () {
 
         menu.removeAttribute('open');
         return false;
+      });
+    });
+
+
+    document.querySelectorAll('.vote__value') // comment rating__list
+    .forEach(list => {
+      list.addEventListener('click', () => {
+
+        if (!document.querySelector('.rating__list')) {
+
+          ajax('rating-list.php');
+          const ratingList = document.createElement('div');
+          ratingList.setAttribute('class', 'rating__list');
+          list.parentNode.appendChild(ratingList);
+
+        } else {
+
+          document.querySelector('.rating__list').remove();
+        }
       });
     });
   }
@@ -553,6 +596,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
        if  ((result?.data)) 
        { 
+        console.log(result?.data);
          try 
          { 
            // Prepare new data
@@ -577,7 +621,7 @@ document.addEventListener('DOMContentLoaded', function () {
               }
             break;
            }
-           window.eval(result?.data);         
+           window.eval(result?.data);        
          } 
          catch (err) 
          { 

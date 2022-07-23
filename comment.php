@@ -105,12 +105,12 @@ $ava = genUserAvatar($user_data['name'], $user_data['surname']);
 
 $html .= '</div>';
 $html .= '<div class="comment__content">';
-$html .= '<span class="comment__avatar" style="background-image: url(\'https://leonardo.osnova.io/2e384afa-663a-ce88-81cd-82136b61e56c/-/scale_crop/64x64/\');">';
-$html .= '<div class="d-flex justify-content-center align-items-center rounded-circle" style="width: 32px; height:32px;  color: '.$ava['color'].'; background-color: '.$ava['bg'].';"><span class="text-uppercase text-center font-weight-bold">'.$ava['name'].'</span></div>';        
+$html .= '<span class="comment__avatar">';
+$html .= '<div class="avatar__bg" style="color: '.$ava['color'].'; background-color: '.$ava['bg'].';"><span>'.$ava['name'].'</span></div>';        
 $html .= '</span>';
 $html .= '<a class="comment__author" href="#">'.$user_data['name'].' '.$user_data['middlename'].'  '.$user_data['surname'].'</a>';
 $html .= '<div class="comment__icon" onclick="form_complaint_id.value = '.$id.'; form_complaint.reset(); return false;" title="Пожаловаться">';
-$html .= '<svg height="20" width="20" class="icon icon--v_flag"><use xlink:href="#v_flag"></use></svg>';            
+$html .= '<img src="/my-design/flag.jpg" height="13" width="13">';            
 $html .= '</div>';
 $html .= '<div class="comment__break"></div>';
 $html .= '<span class="comment__detail">';
@@ -132,23 +132,23 @@ if (!empty($image))
 
 $html .= '<div class="comment__action">Ответить</div>';
 $html .= '<details id="dropdownMenuButton1" class="ddMenu" data-bs-toggle="dropdown" >';
-$html .= '<summary><svg class="icon icon--v_etc" width="16" height="16" xmlns="http://www.w3.org/2000/svg"><use xlink:href="#v_etc"></use></svg></summary>';                
+$html .= '<summary><img src="/my-design/try.jpg" width="16" height="16"></summary>';                
 $html .= ' <ul class="dropdown-menu">';
-$html .= '<li><button class="dropdown-item comment-edit" ><svg height="20" width="20" class="icon icon--v_pen"><use xlink:href="#v_pen"></use></svg> Редактировать</button></li>';
-$html .= '<li><button class="dropdown-item" onclick="ajax(\'delete.php?id='.$id.'\');"><svg height="20" width="20" class="icon icon--v_pen"><use xlink:href="#v_delete"></use></svg> Удалить</button></li>';
+$html .= '<li><button class="dropdown-item comment-edit" >Редактировать</button></li>';
+$html .= '<li><button class="dropdown-item" onclick="ajax(\'delete.php?id='.$id.'\');">Удалить</button></li>';
 $html .= '</ul>';
 $html .= '</details>';
-$html .= '<div id="comment_vote_'.$id.'" class="vote vote--comment">';
+$html .= '<div id="comment_vote_'.$id.'" class="vote">';
 $html .= '<div class="vote__button vote__button--minus" onclick="ajax(\'rating.php?value=0&id='.$id.'\'); return false;">';
-$html .= '<svg class="icon icon--v_arrow_down" width="24" height="24" xmlns="http://www.w3.org/2000/svg"><use xlink:href="#thumbs-down"></use></svg>';    
+$html .= '<img src="/my-design/lado-minus.jpg" width="20" height="20">';    
 $html .= '</div>';
 $html .= '<div id="comment_rating_'.$id.'" class="vote__value">0</div>';
 $html .= '<div class="vote__button vote__button--plus" onclick="ajax(\'rating.php?value=1&id='.$id.'\'); return false;">';
-$html .= '<svg class="icon icon--v_arrow_up" width="24" height="24" xmlns="http://www.w3.org/2000/svg"><use xlink:href="#thumbs-up"></use></svg>';    
+$html .= '<img src="/my-design/lado-plus.jpg" width="20" height="20">';    
 $html .= '</div>';
 $html .= '</div>';
 $html .= '<div class="comment__break"></div>';
-$html .= '<div class="comment__expand-branch comment__inline-action">Развернуть ветку</div>';                                
+$html .= '<div class="comment__expand-branch"></div>';                          
 $html .= '</div>';
 $html .= '</div>';
 
