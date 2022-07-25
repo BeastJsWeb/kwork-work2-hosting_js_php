@@ -114,7 +114,7 @@ $html .= '<img src="/my-design/flag.jpg" height="13" width="13">';
 $html .= '</div>';
 $html .= '<div class="comment__break"></div>';
 $html .= '<span class="comment__detail">';
-$html .= '<time class="time" title="'.date("Y-m-d H:i:s").'">'.relDateTime(time(), false).'</time>';            
+$html .= '<time title="'.date("Y-m-d H:i:s").'">'.relDateTime(time(), false).'</time>';            
 $html .= '</span>';
 $html .= '<div class="comment__text">';
 $html .= '<div id="comment_text_'.$id.'">'.$message.'</div>';                
@@ -122,9 +122,9 @@ $html .= '</div>';
 
 if (!empty($image))
 {
-  $html .= '<div id="comment_image_'.$id.'" class="comment__attaches comment__media">';       
-  $html .= '<div class="andropov_image andropov_image--zoomable" style="max-height: 300px;max-width: 410px;" >';
-  $html .= '<div class="andropov_image__inner" style="padding-bottom: 0px; background: transparent none repeat scroll 0% 0%;"><img onclick="view_image(this);" src="/upload/'.$image.'"></div>';
+  $html .= '<div id="comment_image_'.$id.'" class="comment__media">';       
+  $html .= '<div style="max-height: 300px;max-width: 410px;" >';
+  $html .= '<div style="padding-bottom: 0px; background: transparent none repeat scroll 0% 0%;"><img onclick="view_image(this);" src="/upload/'.$image.'"></div>';
   $html .= '</div>';
   $html .= '</div>';   
 }    

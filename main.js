@@ -269,6 +269,20 @@ document.addEventListener('DOMContentLoaded', function () {
     } 
   });
 
+  function getRes(get, post) {
+
+    const xhr= new XMLHttpRequest();
+    xhr.open('GET', get, true);
+    xhr.onreadystatechange= function() {
+
+      if (this.readyState!==4) return;
+      if (this.status!==200) return;
+
+      document.getElementById(post).innerHTML= this.responseText;
+    };
+    xhr.send();
+  }
+
   if (user_id == 0) { //IF USER NOT LOGGED
 
     ajaxOnSubmitForm('form_login', 'log.php');
@@ -315,25 +329,11 @@ document.addEventListener('DOMContentLoaded', function () {
         if (body.classList.contains('modal-openReg')) {
 
           [
-            { get: 'form_register_country', post: 'form__country--onload' },
-            { get: 'form_register_work', post: 'form__work--onload' },
-            { get: 'form_register_post', post: 'form__post--onload' }
+            { get: './forms/form_register_country.html', post: 'form__country--onload' },
+            { get: './forms/form_register_work.html', post: 'form__work--onload' },
+            { get: './forms/form_register_post.html', post: 'form__post--onload' }
           ]
-          .forEach(({get, post}) => getFormRegister(get, post));
-        }
-
-        function getFormRegister(get, post) {
-
-          const xhr= new XMLHttpRequest();
-          xhr.open('GET', `./forms/${get}.html`, true);
-          xhr.onreadystatechange= function() {
-
-            if (this.readyState!==4) return;
-            if (this.status!==200) return;
-
-            document.getElementById(post).innerHTML= this.responseText;
-          };
-          xhr.send();
+          .forEach(({get, post}) => getRes(get, post));
         }
       });
     });
@@ -409,16 +409,18 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('form_complaint')
     .addEventListener('submit', e => e.preventDefault());
 
-    body.addEventListener('click', () => {
+    body.addEventListener('click', e => {
 
       document.querySelectorAll('.ddMenu') // close dropdown menu
       .forEach(menu => {
         
-        if (menu.hasAttribute('open')) 
-
+        if (!menu.hasAttribute('open')) return;
         menu.removeAttribute('open');
-        return false;
       });
+
+      if (!document.getElementById('rating__list')) return; // comment rating__list -- close
+      else if (e.target.closest('.vote__value')) return;
+      else {document.getElementById('rating__list').remove();}
     });
 
 
@@ -426,17 +428,16 @@ document.addEventListener('DOMContentLoaded', function () {
     .forEach(list => {
       list.addEventListener('click', () => {
 
-        if (!document.querySelector('.rating__list')) {
+        if (list.textContent === '0') return;
+        if (!document.getElementById('rating__list')) {
 
-          ajax('rating-list.php');
+          const postId = list.getAttribute('id').slice(15);
           const ratingList = document.createElement('div');
-          ratingList.setAttribute('class', 'rating__list');
+          ratingList.setAttribute('id', 'rating__list');
           list.parentNode.appendChild(ratingList);
+          getRes(`rating-list.php?id=${postId}`, 'rating__list');
 
-        } else {
-
-          document.querySelector('.rating__list').remove();
-        }
+        } else { document.getElementById('rating__list').remove(); }
       });
     });
   }
@@ -534,11 +535,6 @@ document.addEventListener('DOMContentLoaded', function () {
      comment_form_data_up.value = 0;     
    }
    
-   function d()
-   {
-     document.querySelector(".comments__content_wrapper").classList.add("comments__content_wrapper--open");
-   }
-   
    function f()
    {
      comment_uploader.innerHTML = "";
@@ -596,7 +592,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
        if  ((result?.data)) 
        { 
-        console.log(result?.data);
          try 
          { 
            // Prepare new data

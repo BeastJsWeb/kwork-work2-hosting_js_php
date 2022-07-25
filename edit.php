@@ -33,9 +33,9 @@ $query = mysqli_query($db, "SELECT `id` FROM `comment` WHERE `id` = '".$id."' an
     
     if (!empty($image))
     {
-      $html .= '<div id="comment_image_'.$id.'" class="comment__attaches comment__media">';       
-      $html .= '<div class="andropov_image andropov_image--zoomable" style="max-height: 300px;max-width: 410px;" >';
-      $html .= '<div class="andropov_image__inner" style="padding-bottom: 0px; background: transparent none repeat scroll 0% 0%;"><img onclick="view_image(this);" src="/upload/'.$image.'"></div>';
+      $html .= '<div id="comment_image_'.$id.'" class="comment__media">';       
+      $html .= '<div style="max-height: 300px;max-width: 410px;" >';
+      $html .= '<div style="padding-bottom: 0px; background: transparent none repeat scroll 0% 0%;"><img onclick="view_image(this);" src="/upload/'.$image.'"></div>';
       $html .= '</div>';
       $html .= '</div>'; 
       

@@ -85,6 +85,7 @@
     align-items: center;
     gap: 0 10px;
     zoom: 0.8;
+    position: relative;
 }
 .vote__value {
     background-color: #EEEEEE;
@@ -111,6 +112,22 @@
 }
 .vote__button--minus:hover, .vote__button--plus:hover {
     opacity: 1;
+}
+#rating__list {
+    position: absolute;
+    top: 100%;
+    border-radius: 8px;
+    box-shadow: 0px 0px 5px 0px rgba(34, 60, 80, 0.2);
+    max-height: 200px;
+    z-index: 2;
+    background: white;
+    padding: 5px 10px;
+    overflow: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+#rating__list::-webkit-scrollbar { 
+    width: 0; 
 }
 .comment {
     padding: 8px 0;
@@ -372,7 +389,7 @@
 .modal-open, .modal-openRest, .modal-openComp, .modal-openReg {
     overflow: hidden;
 }
-#modal_register, #modal_complaint, .close, .ui-button, #modal_restore, .modal, .thesis__placeholder, .modal-dialog hr {
+#modal_register, #modal_complaint, .close, #modal_restore, .modal, .thesis__placeholder, .modal-dialog hr {
     display: none;
 }
 .modal-open .modal, .modal-open .close, .modal-openReg #modal_register, .modal-openRest #modal_restore, .modal-openComp #modal_complaint {

@@ -19,7 +19,6 @@ if (empty($recaptcha))
   $html = str_replace(array("\r", "\n"), " ", $html);    
   $html = addslashes($html);    
   
-  $js .= 'login_form_message.classList.remove("d-none");'; 
   $js .= 'login_form_message.innerHTML = "'.$html.'";'; 
 }
 else
@@ -39,12 +38,10 @@ else
     $html = str_replace(array("\r", "\n"), " ", $html);    
     $html = addslashes($html);    
   
-    $js .= 'login_form_message.classList.remove("d-none");'; 
     $js .= 'login_form_message.innerHTML = "'.$html.'";'; 
   }      
   else
   {    
-    $js .= 'login_form_message.classList.add("d-none");';
     $js .= 'login_form_message.innerHTML = "";'; 
   }  
 }    
@@ -115,8 +112,7 @@ if (!$error)
    
     $html = str_replace(array("\r", "\n"), " ", $html);    
     $html = addslashes($html);    
-  
-    $js .= 'login_form_message.classList.remove("d-none");'; 
+   
     $js .= 'login_form_message.innerHTML = "'.$html.'";'; 
 
     if ($_POST['password'] != md5($password) && isset($_SESSION["pass_attempt"]) && $_SESSION["pass_attempt"] < 3) {

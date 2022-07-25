@@ -784,7 +784,7 @@ foreach ($comments as $k => $v)
 
     <div id="page_wrapper">
     <div>
-      <div class="comments comments--ready">
+      <div>
       <div id='comments__body' class="comments__body">
         <div class="comments__title" data-count="5">
         <div class="comments__title"><span id="comment_count_all"><?php echo $count; ?></span>&nbsp;комментариев</div>
@@ -796,8 +796,8 @@ foreach ($comments as $k => $v)
           <div class="comments__header">
           <div id="comment_pseudo_form_up" class="comments_pseudo_form --show" data-inversion="-1" onclick="a(false);">
             <div class="comments_pseudo_form__text">Написать комментарий...</div>
-            <div class="comments_pseudo_form__buttons">
-            <div class="comments_pseudo_form__button">
+            <div>
+            <div>
               <img src="/my-design/knv.jpg" width="17" height="17">
             </div>
             </div>
@@ -806,9 +806,9 @@ foreach ($comments as $k => $v)
           <?php
         }
         ?>
-        <div class="comments__content_wrapper <?php echo $count < 10 ? 'comments__content_wrapper--open' : 'comments__content_wrapper--open'; ?>">
-        <div class="comments__content_wrapper__container">
-          <div id="comment_box" class="comments__content">
+        <div class="comments__content_wrapper">
+        <div>
+          <div id="comment_box" >
           <?php
           function comments(array $comments, $level = 0, $next = 0, $arr = array())
           {
@@ -888,7 +888,7 @@ foreach ($comments as $k => $v)
                 </div>
                 <div class="comment__break"></div>
                 <span class="comment__detail">
-                  <time class="time" title="<?php echo $row['time_add']; ?>"><?php echo relDateTime($row['time_add']); ?></time>
+                  <time title="<?php echo $row['time_add']; ?>"><?php echo relDateTime($row['time_add']); ?></time>
                 </span>
                 <div class="comment__text" style="margin-top: 12px;">
                   <div id="comment_text_<?php echo $row['id']; ?>"><?php echo $row['message']; ?></div>
@@ -898,9 +898,9 @@ foreach ($comments as $k => $v)
                 if (!empty($row['image']))
                 {
                   ?>
-                  <div id="comment_image_<?php echo $row['id']; ?>" class="comment__attaches comment__media">
-                    <div class="andropov_image andropov_image--zoomable" style="max-height: 300px;max-width: 410px;">
-                    <div class="andropov_image__inner" style="padding-bottom: 0px; background: transparent none repeat scroll 0% 0%;"><img onclick="view_image(this);" src="/upload/<?php echo $row['image']; ?>"></div>
+                  <div id="comment_image_<?php echo $row['id']; ?>" class="comment__media">
+                    <div style="max-height: 300px;max-width: 410px;">
+                    <div style="padding-bottom: 0px; background: transparent none repeat scroll 0% 0%;"><img onclick="view_image(this);" src="/upload/<?php echo $row['image']; ?>"></div>
                     </div>
                   </div>
                   <?php
@@ -981,20 +981,20 @@ foreach ($comments as $k => $v)
             <input id="comment_form_data_subscription" type="hidden" name="subscription" value="0">
           </form>
 
-          <div class="comments__footer">
+          <div>
           <div id="comment_pseudo_form" class="comments_pseudo_form " data-inversion="1" onclick="a();">
             <div class="comments_pseudo_form__text">Написать комментарий...</div>
-            <div class="comments_pseudo_form__buttons">
-            <div class="comments_pseudo_form__button">
+            <div>
+            <div>
               <img src="/my-design/knv.jpg" width="17" height="17">
             </div>
             </div>
           </div>
           <div id="comment_form" class="comments_form">
-            <div class="comments_form__editor">
-            <div id="comment_input_box" class="thesis thesis--empty">
+            <div>
+            <div id="comment_input_box" class="thesis--empty">
               <div id="comment_placeholder" class="thesis__placeholder">Написать комментарий...</div>
-              <div class="thesis__content">
+              <div>
               <div>
                 <div>
                   <p
@@ -1006,10 +1006,10 @@ foreach ($comments as $k => $v)
                 </div>
               </div>
               </div>
-              <div id="comment_uploader" class="andropov_uploader">
+              <div id="comment_uploader" >
               </div>
               <div class="thesis__panel">
-              <div class="thesis__attaches">
+              <div>
                 <div class="thesis__upload_file" onclick="site_fileload(this);">
                   <img src="/my-design/knv.jpg" width="17" height="17">
                 </div>
@@ -1039,12 +1039,6 @@ foreach ($comments as $k => $v)
           </div>
         </div>
         </div>
-
-        <div>
-          <div class="ui-button" onclick="d();">
-          Читать все <?php echo $count; ?> комментариев
-          </div>
-        </div>
         </div>
       </div>
       </div>
@@ -1054,27 +1048,27 @@ foreach ($comments as $k => $v)
     <div class="modal" id="modal_register" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
-      <div class="modal-header"><h5 class="modal-title">Регистрация</h5><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
+      <div class="modal-header"><h5>Регистрация</h5><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
       <div class="modal-body">
         <form id="form_register" novalidate="" autocomplete="off">
         <div class="row">
           <div>
-            <label class="form-label">Имя <span class="text-danger">*</span></label>
+            <label>Имя <span class="text-danger">*</span></label>
             <input type="text" class="form-validate" id="form_register_name" maxlength="30" name="name" placeholder="">
             <div id="form_register_name_message" class="invalid-feedback"></div>
           </div>
           <div>
-            <label class="form-label">Фамилия <span class="text-danger">*</span></label>
+            <label>Фамилия <span class="text-danger">*</span></label>
             <input type="text" class="form-validate" id="form_register_surname" maxlength="30" name="surname" placeholder="">
             <div id="form_register_surname_message" class="invalid-feedback"></div>
           </div>
           <div>
-            <label class="form-label">Отчество</label>
+            <label>Отчество</label>
             <input type="text" class="form-validate" id="form_register_middlename" maxlength="30" name="middlename" placeholder="">
             <div id="form_register_middlename_message" class="invalid-feedback"></div>
           </div>
           <div>
-            <label  class="form-label">Пол</label>
+            <label>Пол</label>
             <select class="form-validate" name="gender" id="form_register_gender">
             <option value="0">Выбрать...</option>
             <option value="1">Мужской</option>
@@ -1084,33 +1078,33 @@ foreach ($comments as $k => $v)
             <div id="form_register_gender_message" class="invalid-feedback"></div>
           </div>
           <div>
-            <label class="form-label">Email <span class="text-danger">*</span></label>
+            <label>Email <span class="text-danger">*</span></label>
             <input type="email" class="form-validate" id="form_register_email" maxlength="100" name="email" placeholder="you@example.ru">
             <div id="form_register_email_message" class="invalid-feedback"></div>
           </div>
 
           <div>
-            <label  class="form-label">Территория проживания</label>
+            <label>Территория проживания</label>
             <div id='form__country--onload' ></div>
           </div>
 
           <div>
-            <label  class="form-label">Вид деятельности</label>
+            <label>Вид деятельности</label>
             <div id='form__work--onload' ></div>
           </div>
 
           <div>
-            <label  class="form-label">Должность</label>
+            <label>Должность</label>
             <div id='form__post--onload' ></div>
           </div>
 
           <div>
-            <label class="form-label">Компания</label>
+            <label>Компания</label>
             <input type="text" class="form-validate" id="form_register_company" maxlength="50" name="company" placeholder="">
             <div id="form_register_company_message" class="invalid-feedback"></div>
           </div>
           <div>
-            <label class="form-label">О себе</label>
+            <label>О себе</label>
             <textarea id="form_register_about" class="form-validate" maxlength="500" name="about"></textarea>
             <div id="form_register_about_message" class="invalid-feedback"></div>
           </div>
@@ -1124,13 +1118,13 @@ foreach ($comments as $k => $v)
 
           <div class="recaptcha__reg"><div id="register_form_recaptcha"></div></div>
 
-          <div id="register_form_message" class="d-none"></div>
+          <div id="register_form_message"></div>
         </div>
         <div>
         <hr>
         <div class="modal__footer">
           <div>Есть аккаунт? <a href="#" class="btns_login">Войти</a></div>
-          <button class="btn btn-primary" >Зарегистрироваться</button>
+          <button class="btn-primary" >Зарегистрироваться</button>
         </div>
         </form>
       </div>
@@ -1142,22 +1136,22 @@ foreach ($comments as $k => $v)
     <div class="modal" id="modal_login" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
-      <div class="modal-header"><h5 class="modal-title">Вход в аккаунт</h5><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
+      <div class="modal-header"><h5>Вход в аккаунт</h5><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
       <div class="modal-body">
         <form id="form_login" novalidate="" autocomplent="off">
         <div class="row">
           <div>
-            <label class="form-label">Email <span class="text-danger">*</span></label>
+            <label>Email <span class="text-danger">*</span></label>
             <input type="email" class="form-validate" id="form_login_email" maxlength="100" name="email">
             <div id="form_login_email_message" class="invalid-feedback"></div>
           </div>
           <div>
-            <label class="form-label">Пароль <span class="text-danger">*</span></label>
+            <label>Пароль <span class="text-danger">*</span></label>
             <input type="password" class="form-validate" id="form_login_password" maxlength="30" name="password">
             <div id="form_login_name_message" class="invalid-feedback"></div>
           </div>
           <div class="recaptcha__log"><div id="login_form_recaptcha"></div></div>
-          <div id="login_form_message" class="d-none"></div>
+          <div id="login_form_message"></div>
         </div>
         <hr>
         <div class="modal__footer">
@@ -1166,7 +1160,7 @@ foreach ($comments as $k => $v)
             <a href="#" class="btns_reg" >Регистрация</a>
             <a href="#" id='btn_rest' >Забыли пароль</a>
           </div>
-          <button id='form_login--submit' class="btn btn-primary" >Войти</button>
+          <button id='form_login--submit' class="btn-primary" >Войти</button>
         </div>
         </form>
       </div>
@@ -1177,23 +1171,23 @@ foreach ($comments as $k => $v)
     <div class="modal" id="modal_restore" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
-      <div class="modal-header"><h5 class="modal-title">Создание нового пароля</h5><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
+      <div class="modal-header"><h5>Создание нового пароля</h5><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
       <div class="modal-body">
         <form id="form_restore" novalidate="" autocomplent="off">
         <div class="row">
           <div>
-            <label class="form-label">Email <span class="text-danger">*</span></label>
+            <label>Email <span class="text-danger">*</span></label>
             <input type="email" class="form-validate" id="form_restore_email" maxlength="100" name="email">
             <div id="form_restore_email_message" class="invalid-feedback"></div>
           </div>
           <div class="recaptcha__res"><div id="restore_form_recaptcha"></div></div>
-          <div id="restore_form_message" class="d-none"></div>
+          <div id="restore_form_message"></div>
         </div>
         <hr>
         <div class="modal__footer">
           <div>
           </div>
-          <button class="btn btn-primary" >Отправить письмо с паролем</button>
+          <button class="btn-primary" >Отправить письмо с паролем</button>
         </div>
         </form>
       </div>
@@ -1204,7 +1198,7 @@ foreach ($comments as $k => $v)
     <div class="modal" id="modal_complaint" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
-      <div class="modal-header"><h5 class="modal-title">Пожаловаться</h5><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
+      <div class="modal-header"><h5>Пожаловаться</h5><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
       <div class="modal-body">
         <form id="form_complaint" novalidate="" autocomplent="off">
         <input id="form_complaint_id" type="hidden" name="id" value="">
@@ -1224,7 +1218,7 @@ foreach ($comments as $k => $v)
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" onclick="ajax('complaint.php', '#form_complaint');">Отправить</button>
+        <button type="button" class="btn-primary" onclick="ajax('complaint.php', '#form_complaint');">Отправить</button>
       </div>
       </div>
     </div>
