@@ -92,7 +92,6 @@
     padding: 5px 15px;
     border-radius: 5px;
     width: 42px;
-    cursor: pointer;
     opacity: 0.8;
 }
 .vote__value:hover {
@@ -101,10 +100,12 @@
 .vote--sum-positive .vote__value {
     background-color: #eefbf3;
     color: #2ea83a;
+    cursor: pointer;
 }
 .vote--sum-negative .vote__value {
     background-color: #fff1f1;
     color: #e52e3a;
+    cursor: pointer;
 }
 .vote__button--minus, .vote__button--plus {
     opacity: 0.7;
@@ -589,16 +590,16 @@
     display: block; 
     margin-top: 5px;
 }
-.modal-body .alert {
+.alert {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 15px 0;
+    padding: 15px 10px;
     background-color: #F7D7DA;
     border-radius: 5px;
     border: 1px solid #E0E0E0;
     color: #733131;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 #form_restore .row {
     display: flex;

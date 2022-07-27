@@ -276,7 +276,11 @@ document.addEventListener('DOMContentLoaded', function () {
     xhr.onreadystatechange= function() {
 
       if (this.readyState!==4) return;
-      if (this.status!==200) return;
+      if (this.status!==200) {
+        document.getElementById(post).innerHTML = 
+          `<div class="alert">Не удалось получить ${get}<br> Ошибка ${this.status}</div>`;
+        return;
+      }
 
       document.getElementById(post).innerHTML= this.responseText;
     };
@@ -410,17 +414,15 @@ document.addEventListener('DOMContentLoaded', function () {
     .addEventListener('submit', e => e.preventDefault());
 
     body.addEventListener('click', e => {
-
       document.querySelectorAll('.ddMenu') // close dropdown menu
       .forEach(menu => {
-        
         if (!menu.hasAttribute('open')) return;
         menu.removeAttribute('open');
       });
 
       if (!document.getElementById('rating__list')) return; // comment rating__list -- close
-      else if (e.target.closest('.vote__value')) return;
-      else {document.getElementById('rating__list').remove();}
+      if (e.target.closest('.vote__value')) return;
+      document.getElementById('rating__list').remove();
     });
 
 
